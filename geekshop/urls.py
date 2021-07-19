@@ -19,12 +19,8 @@ import mainapp.views as mainapp
 from geekshop.views import index, contacts
 
 urlpatterns = [
-    # path('', mainapp.main),
     path('admin/', admin.site.urls),
-    path('', index),
-    path('index/', index),
-    path('contacts/', contacts),
-    # path('contact/', 'contact'),
-    # path('products/', mainapp.products),        # альтернативный вариант, если сделали "import mainapp.views as mainapp"
-    path('products/', include('mainapp.urls')),
+    path('products/', include('mainapp.urls', namespace='products'), name='products'),
+    path('', index, name='index'),
+    path('contacts/', contacts, name='contacts')
 ]
