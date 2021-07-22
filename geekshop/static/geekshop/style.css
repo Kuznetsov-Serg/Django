@@ -1026,6 +1026,7 @@ td:first-child {
 }
 .related-products .block a img {
 	float: left;
+/*	width: -webkit-fill-available; */
 }
 .related-products .block {
 	float: left;
