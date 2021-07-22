@@ -1,7 +1,14 @@
 <div class="links clearfix">
     <ul class="links-menu">
         {% for link in links_menu %}
-            <li><a href="{{ link.href }}" class="{% if request.resolver_match.url_name == link.href %}active{% endif %}">{{ link.name }}</a></li>
+            <li><a href="{{ link.href }}" id="{{ link.id }}" class="{% if category_id == link.id %}active{% endif %}">{{ link.name }}</a></li>
         {% endfor %}
     </ul>
 </div>
+<script type="text/javascript">
+    function render_product(catalog_id_new) {
+        catalog_id = catalog_id_new
+<!--        console.log('в функции render_product передали id =', catalog_id)-->
+    }
+</script>
+<!--<a href="javascript:void(0)" onclick="next_num(false);" class="lotto__button" id="next_num_button">Новая игра</a>-->
