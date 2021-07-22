@@ -18,13 +18,17 @@ from django.urls import path, include
 import mainapp.views as mainapp
 from geekshop.views import index, contacts
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 urlpatterns = [
-    # path('', mainapp.main),
     path('admin/', admin.site.urls),
-    path('', index),
-    path('index/', index),
-    path('contacts/', contacts),
-    # path('contact/', 'contact'),
-    # path('products/', mainapp.products),        # альтернативный вариант, если сделали "import mainapp.views as mainapp"
-    path('products/', include('mainapp.urls')),
+    path('products<int:category_id>/', include('mainapp.urls', namespace='products'), name='products'),
+    path('', index, name='index'),
+    path('contacts/', contacts, name='contacts')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

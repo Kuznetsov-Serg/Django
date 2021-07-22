@@ -1,0 +1,9 @@
+<div class="header clearfix">
+    <a href="/" class="logo"></a>
+    <ul class="menu">
+        <li><a href="/" class="{% if request.resolver_match.view_name == 'index' %}active{% endif %}">домой</a></li>
+        <li><a href="{% url 'products:index' category_id=0 %}" class="{% if request.resolver_match.view_name == 'products:index' %}active{% endif %}">продукты</a></li>
+        <li><a href="{% url 'contacts' %}" class="{% if request.resolver_match.view_name == 'contacts' %}active{% endif %}">контакты</a></li>
+    </ul>
+    <a href="#" class="search"></a>
+</div>
