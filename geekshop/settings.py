@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mainapp',
+    'authapp',
 ]
+
+AUTH_USER_MODEL = 'authapp.ShopUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -105,6 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+LANGUAGE_CODE = 'ru-RU'
+LANGUAGES = [
+('en', 'English'),
+('ru', 'Russian'),
+]
 
 TIME_ZONE = 'Europe/Moscow'
 
