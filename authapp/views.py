@@ -1,11 +1,13 @@
-from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
-from .forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
+
+from .forms import ShopUserLoginForm, ShopUserEditForm, ShopUserRegisterForm, ShopUserChangePasswordForm
 
 
 def login(request):
-    title = 'вход'
+    title = 'входа'
 
     login_form = ShopUserLoginForm(data=request.POST)
     if request.method == 'POST' and login_form.is_valid():
@@ -17,16 +19,17 @@ def login(request):
             auth.login(request, user)
             return HttpResponseRedirect(reverse('index'))
 
-    content = {
-            'title': title,
-            'login_form': login_form
+    context = {
+        'title': title,
+        'login_form': login_form
     }
-    return render(request, 'authapp/login.html', content)
+    return render(request, 'authapp/login.html', context)
 
 
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
+
 
 def register(request):
     title = 'регистрация'
@@ -54,7 +57,8 @@ def edit(request):
         if edit_form.is_valid():
             edit_form.save()
 
-            return HttpResponseRedirect(reverse('auth:edit'))
+            return HttpResponseRedirect(reverse('index'))
+            # return HttpResponseRedirect(reverse('auth:edit'))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
     context = {
@@ -63,3 +67,19 @@ def edit(request):
     }
     return render(request, 'authapp/edit.html', context)
 
+def password(request):
+    title = 'Смена пароля'
+
+    if request.method == 'POST':
+        password_form = ShopUserChangePasswordForm(request.POST, request.FILES, instance=request.user)
+        if password_form.is_valid():
+            password_form.save()
+
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        password_form = ShopUserChangePasswordForm(instance=request.user)
+    context = {
+        'title': title,
+        'password_form': password_form
+    }
+    return render(request, 'authapp/password.html', context)

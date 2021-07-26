@@ -1,7 +1,7 @@
-coding="utf-8"      # Без этого, раньше ругалась на  raise forms.ValidationError("Вы слишком молоды!")
-# -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+
+
 from .models import ShopUser
 
 
@@ -14,6 +14,7 @@ class ShopUserLoginForm(AuthenticationForm):
         super(ShopUserLoginForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+
 
 class ShopUserRegisterForm(UserCreationForm):
     class Meta:
@@ -28,7 +29,6 @@ class ShopUserRegisterForm(UserCreationForm):
     def clean_age(self):
         data = self.cleaned_data['age']
         if data < 18:
-            # raise forms.ValidationError("You are yang!")
             raise forms.ValidationError("Вы слишком молоды!")
 
         return data
@@ -48,6 +48,15 @@ class ShopUserEditForm(UserChangeForm):
         data = self.cleaned_data['age']
         if data < 18:
             raise forms.ValidationError("Вы слишком молоды!")
-            # raise forms.ValidationError("You are yang!")
 
         return data
+
+class ShopUserChangePasswordForm(UserCreationForm):
+    class Meta:
+        model = ShopUser
+        fields = ('password1', 'password2')
+
+    def __init__(self, *args, **kwargs):
+        super(ShopUserChangePasswordForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
