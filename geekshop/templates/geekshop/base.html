@@ -17,5 +17,18 @@
 		<div class="clr"></div>
 	</div>
     {% include 'geekshop/includes/inc_footer.html' %}
+<!--	Подключим скрипта с функционалом галереи-->
+  	<script src="{% static 'geekshop/js/gallery.js' %}"></script>
+	<script type="text/javascript">
+		var my_gallery = gallery;
+<!--		Инициируем экземпляр ГАЛЕРЕЯ и повесим обработчики CLICK на все картинки '.product_table', если есть-->
+		my_gallery.init({ previewSelector: '.product_table', imageBasePathSrc: '{% static "/geekshop/img/" %}' });
+
+
+<!--		function openImage(full_image_url='') {-->
+<!--			if (full_image_url != '')-->
+<!--				my_gallery.openImage(full_image_url);-->
+<!--		}-->
+	</script>
 </body>
 </html>

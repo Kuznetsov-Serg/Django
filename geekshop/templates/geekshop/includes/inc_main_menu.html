@@ -1,16 +1,21 @@
 <div class="header clearfix">
+
     <a href="/" class="logo"></a>
+
     <ul class="menu" style="display: flex; align-items: baseline;">
         <li><a href="/" class="{% if request.resolver_match.view_name == 'index' %}active{% endif %}">домой</a></li>
-        <li><a href="{% url 'products:index' category_id=0 %}" class="{% if request.resolver_match.view_name == 'products:index' %}active{% endif %}">продукты</a></li>
+        <li><a href="{% url 'products:index' %}" class="{% if request.resolver_match.view_name == 'products:index' %}active{% endif %}">продукты</a></li>
         <li><a href="{% url 'contacts' %}" class="{% if request.resolver_match.view_name == 'contacts' %}active{% endif %}">контакты</a></li>
         {% if user.is_authenticated %}
-        <li>
-            <a href="{% url 'auth:edit' %}">
-                <img src="/media/{{ user.avatar }}" style="width: 50px; border-radius: 50%;" class="rounded-circle">
-                {{ user.first_name|default:'Пользователь' }}
-            </a>
-        </li>
+            <li>
+                <a href="{% url 'auth:edit' %}">
+                    <img src="/media/{{ user.avatar }}" style="width: 50px; border-radius: 50%;" class="rounded-circle">
+                    {{ user.first_name|default:'Пользователь' }}
+                </a>
+            </li>
+            {% if basket %}
+                <li><a href="{% url 'basket:view' %}" class="basket">&#22291;({{ basket|length }} позиц. на {{ basket_sum }}р)</a></li>
+            {% endif %}
         {% endif %}
         <li>
             {% if user.is_authenticated %}
@@ -22,3 +27,5 @@
     </ul>
     <a href="#" class="search"></a>
 </div>
+
+

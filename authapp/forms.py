@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
 
 
 from .models import ShopUser
@@ -52,6 +52,7 @@ class ShopUserEditForm(UserChangeForm):
         return data
 
 class ShopUserChangePasswordForm(UserCreationForm):
+# class ShopUserChangePasswordForm(PasswordChangeForm):
     class Meta:
         model = ShopUser
         fields = ('password1', 'password2')

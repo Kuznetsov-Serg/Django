@@ -54,31 +54,62 @@
         </div>
     </div>
 
-    <div class="related">
-        <div class="title clearfix">
-            <h2>Похожие продукты</h2>
-            <a class="explore" href="#">показать все <img src="/static/geekshop/img/arrow.png" alt=""></a>
-        </div>
-        <div class="related-products clearfix">
-            {% for product in related_products %}
-                {% if forloop.counter <= 3 or category_id != 0 %}
-                    {% if product.category_id == category_id or category_id == 0 %}
-                    {#% if product.category_id|stringformat:"s" == category_id or category_id == '0' %#}
-                        <div class="block">
-                            <a href="#"><img src="/media/{{ product.image }}" style="width: -webkit-fill-available" alt="">
-                                <div class="text">
-                                    <img src="/static/geekshop/img/icon-hover.png" alt="img">
-                                    <h4>{{ product.name }}</h4>
-                                    <p>{{ product.short_desc }} </p>
-                                    <p>{{ product.category.name }} </p>
-                                </div>
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
+    <div class="products_list" style="margin-top: 50px;">
+        {% if category %}
+            <div class="title clearfix">
+                <h2>
+                    Категория: "{{ category.name|title }}"
+                </h2>
+            </div>
+            <div class="related ">
+                <table class="product_table" id="product_table_id">
+                    <tbody>
+                        <tr>
+                            <th class="table_head">Наименование</th>
+                            <th class="table_head">Категория</th>
+                            <th class="table_head">краткое описание</th>
+                            <th class="table_head">Цена</th>
+                            <th class="table_head" style='padding:0; white-space:normal;'><img src="/static/geekshop/img/press_img.png" height=50px alt="Для просмотра нажмите"></th>
+                            <th class="table_head">в корзину</th>
+                        </tr>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category.name }}</td>
+                                <td>{{ product.short_desc }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>
+                                    <img src="/media/{{ product.image }}" height=50 data-full_image_url="/media/{{ product.image }}" alt="img">
+<!--                                    <img src="/media/{{ product.image }}" height=50 data-full_image_url="/media/{{ product.image }}" onclick="openImage('/media/{{ product.image }}')" alt="img">-->
+                                </td>
+                                <td><a href="{% url 'basket:add' product.pk %}"><button class="button_add_to_basket" data-id="${item.id}">в корзину</button></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        <div class="related">
+            <div class="title clearfix">
+                <h2>Похожие продукты</h2>
+                <a class="explore" href="#">показать все <img src="/static/geekshop/img/arrow.png" alt=""></a>
+            </div>
+            <div class="related-products clearfix">
+                {% for product in related_products %}
+                    <div class="block">
+                        <a href="#"><img src="/media/{{ product.image }}" style="width: -webkit-fill-available" alt="">
+                            <div class="text">
+                                <img src="/static/geekshop/img/icon-hover.png" alt="img">
+                                <h4>{{ product.name }}</h4>
+                                <p>{{ product.short_desc }} </p>
+                                <p>{{ product.category.name }} </p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
