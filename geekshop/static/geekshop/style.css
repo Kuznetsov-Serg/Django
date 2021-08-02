@@ -18,6 +18,7 @@ html, body {
 
 .container {
 	width: 1366px;
+	max-width: 1366px;
 	margin: 0 auto;
 	min-height: 100%;
 }
@@ -543,7 +544,7 @@ html, body {
 
 .footer {
 	height: 384px;
-	width: 1169px;
+/*  width: 1169px;   */
 	background-color: #f7f7f7;
 	padding-left: 99px;
 	padding-right: 98px;
@@ -844,7 +845,7 @@ td:first-child {
 }
 
 .hero-white {
-	background-color: #fff;
+	/* background-color: #fff; */
 	height: 119px;
 	padding-left: 98px;
 	padding-right: 211px;
@@ -1032,8 +1033,8 @@ td:first-child {
 	float: left;
 	margin-right: 30px;
 	display: block;
-	height: 370px;
-	width: 370px;
+	height: 350px;
+	width: 350px;
 	position: relative;
 }
 .related-products .block:nth-child(3n) {
@@ -1081,9 +1082,9 @@ table.product_table tr.selected {
     background-color: aqua;
 }
 table.product_table {text-decoration: none;border-collapse:collapse;width:100%;text-align:center;margin: 0;}
-table.product_table th {font-weight:bold;font-size:14px; color:#ffffff;background-color:#0f65a3;}
-table.product_table td {font-weight:bold;font-size:13px;color:green;min-width: $min_size_img; height: $min_size_img + 5px;}
-table.product_table td,table.product_table th {padding:10px 5px;line-height:13px;vertical-align: middle;border: 1px solid #0f65a3;}
+table.product_table th {font-weight:bold;font-size:20px; color:#ffffff;background-color:#0f65a3;}
+table.product_table td {font-size:18px;color:green;min-width: $min_size_img; height: $min_size_img + 5px;}
+table.product_table td,table.product_table th {padding:10px 5px;line-height:20px;vertical-align: middle;border: 1px solid #0f65a3;}
 table.product_table tr:hover {background-color:#f9fafb}
 table.product_table tr:hover td {color:#354251;cursor:default;}
 

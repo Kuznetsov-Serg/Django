@@ -1,49 +1,38 @@
+import random
+
 from django.shortcuts import render, get_object_or_404
 from .models import ProductCategory, Product
 from basketapp.models import Basket
+
 from django.urls import reverse
 
 
-# Create your views here.
-
-# def index(request):
-#     return render(request, 'mainapp/products.html')
-#
-# def products(request):
-#     return render(request, 'mainapp/products.html')
 def get_absolute_url(self):
     return reverse('products', kwargs={'category_id': self.category_id})
+
+def get_basket(user):
+    if user.is_authenticated:
+        return Basket.objects.filter(user=user)
+    else:
+        return []
+
+def get_hot_product():
+    products = Product.objects.all()
+    return random.sample(list(products), 1)[0]
+
+def get_same_products(hot_product):
+    same_products = Product.objects.filter(category=hot_product.category).\
+                                    exclude(pk=hot_product.pk)[:3]
+    return same_products
+
 
 def products(request, pk=None):
     # pk - вх. параметр для страницы products (фильтр для показа related products) если=None - пункт "ВСЕ"
     title = 'продукты'
-
     links_menu = ProductCategory.objects.all()      # Считаем все категории из справочника ("все" сформируем в HTML)
-    # links_menu = [{'href': '/products/category/0/', 'id': 0, 'name': 'все'}]  # дополним пунктом меню для всех категорий
-    # for el in ProductCategory.objects.all():                        # Считаем все категории из справочника
-    #     links_menu.append({'href': '/products/category/'+str(el.id)+'/', 'id': el.id, 'name': el.name})
-
-    products = Product.objects.all()[:3]                # Считаем продукты из справочника
-    # products = Product.objects.all()    # Считаем продукты из справочника (количество уже ограничим в форме)
-    # products = []
-    # products_amount = {}
-    # for el in Product.objects.all():
-    #     if products_amount.get(el.category_id) == None:     # не было такой категории
-    #         products_amount[el.category_id] = 0
-    #     if products_amount[el.category_id] < 3:             # берем не более трех товаров каждой категории
-    #         products_amount[el.category_id] += 1
-    #         products.append(el)
-
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        basket_sum = 0
-        for el in basket:
-            basket_sum += el.quantity * el.product.price
-    else:
-        basket = []
-        basket_sum = 0
-
-    # basket = Basket.objects.all()
+    basket = get_basket(request.user)
+    hot_product = get_hot_product()
+    same_products = get_same_products(hot_product)
 
     if pk is not None:
         if pk == 0:
@@ -55,15 +44,34 @@ def products(request, pk=None):
     else:
         pk = 0
         category = ''
+        products = ''
 
     context = {
         'title': title,
         'links_menu': links_menu,
         'category': category,
         'category_id': pk,
+        'hot_product': hot_product,
+        'related_products': same_products,
         'products': products,
-        'related_products': products,
         'basket': basket,
-        'basket_sum': basket_sum,
     }
     return render(request, 'mainapp/products.html', context)
+
+
+def product(request, pk=None):
+    title = 'продукт'
+    links_menu = ProductCategory.objects.all()      # Считаем все категории из справочника ("все" сформируем в HTML)
+    basket = get_basket(request.user)
+
+    product = get_object_or_404(Product, pk=pk)
+    same_products = get_same_products(product)
+
+    context = {
+        'title': title,
+        'links_menu': links_menu,
+        'related_products': same_products,
+        'product': product,
+        'basket': basket,
+    }
+    return render(request, 'mainapp/product.html', context)

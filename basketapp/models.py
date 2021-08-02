@@ -32,3 +32,37 @@ class Basket(models.Model):
     class Meta:
         verbose_name = 'корзина'
         verbose_name_plural = 'корзины'
+
+    @property
+    def product_cost(self):
+        "return cost of all products this type"
+        return self.product.price * self.quantity
+
+    @property
+    def total_quantity(self):
+        items = Basket.objects.filter(user=self.user)
+        totalquantity = sum(list(map(lambda x: x.quantity, items)))
+        return totalquantity
+
+    @property
+    def total_cost(self):
+        items = Basket.objects.filter(user=self.user)
+        totalcost = sum(list(map(lambda x: x.product_cost, items)))
+        return totalcost
+
+    @property
+    def basket_dict(self):
+        basket_dict = {}
+        items = Basket.objects.filter(user=self.user)
+        for el in items:
+            basket_dict[el.product.id] = el.quantity
+        return basket_dict
+
+    @classmethod
+    def product_quantity_in_basket(self, product=0):
+        item = Basket.objects.filter(user=self.user, product=product)
+        if (item):
+            quantity = item.quantity
+        else:
+            quantity = 0
+        return quantity
