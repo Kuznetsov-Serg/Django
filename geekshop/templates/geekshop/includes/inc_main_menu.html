@@ -21,6 +21,11 @@
                             &#22291; - {{ basket.0.total_cost|floatformat:0 }}р ({{ basket.0.total_quantity }} шт.)</a></li>
                     {% endif %}
                 {% endif %}
+                {% if user.is_superuser %}
+                <li>
+                    <a href="{% url 'admin_staff:users' %}">админка</a>
+                </li>
+                {% endif %}
                 <li>
                     {% if user.is_authenticated %}
                       <a href="{% url 'auth:logout' %}">выйти</a>

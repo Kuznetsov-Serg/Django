@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.shortcuts import get_object_or_404
 # from django.contrib.auth.models import User
 # from django.contrib.auth.models.User(AbstractUser) import User
 
@@ -39,6 +40,10 @@ class Command(BaseCommand):
         #     new_product.save()
 
         # Создаем суперпользователя при помощи менеджера модели
+        user = get_object_or_404(ShopUser, username='kuznetsov')
+        user.delete()
+        # ttt = ShopUser.objects.all().find(username='kuznetsov')
+        # ttt.delete()
         ShopUser.objects.create_superuser('kuznetsov', 'ksn1974@mail.ru', '1', age=33)
 
 def load_from_json(file_name):

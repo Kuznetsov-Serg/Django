@@ -1,0 +1,86 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Товары</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fa fa-table mr-1"></i>
+                {{ category.name|title }}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Изображение</th>
+                            <th>Наименование</th>
+                            <th>Краткое описание</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Подробнее</th>
+                            <th>Редактировать</th>
+                            <th>Удалить</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Изображение</th>
+                            <th>Наименование</th>
+                            <th>Краткое описание</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Подробнее</th>
+                            <th>Редактировать</th>
+                            <th>Удалить</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for product in objects %}
+                        <tr>
+                            <td>
+                                <img src="/media/{{ product.image }}" height=50px data-full_image_url="/media/{{ product.image }}" alt="img">
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.short_desc }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td class="text-center">
+                                <button class="button_add_to_basket">
+                                    <a href={% url 'admin_staff:product_read' product.pk %} style="color: #f9fafb">
+                                    Подробно
+                                    </a>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <button class="button_add_to_basket">
+                                    <a href={% url 'admin_staff:product_update' product.pk %} style="color: #f9fafb">
+                                    Редактировать
+                                    </a>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <button class="button_add_to_basket">
+                                    <a href={% url 'admin_staff:product_delete' product.pk %} style="color: #f9fafb">
+                                    Удалить
+                                    </a>
+                                </button>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'admin_staff:product_create' category.pk %}">
+                    <button class="btn btn-success">Создать товар</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

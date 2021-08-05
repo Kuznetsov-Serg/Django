@@ -7,12 +7,14 @@ class ProductCategory(models.Model):
         max_length=64,
         unique=True,
     )
-
     description = models.TextField(
         verbose_name='описание',
         blank=True,
     )
-
+    is_active = models.BooleanField(
+        verbose_name='активна',
+        default=True
+    )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -56,11 +58,17 @@ class Product(models.Model):
         verbose_name='количество на складе',
         default=0,
     )
+    is_active = models.BooleanField(
+        verbose_name='активна',
+        default=True
+    )
+
     def __str__(self):
         return f'{self.name} ({self.category.name})'
 
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
+
 
 

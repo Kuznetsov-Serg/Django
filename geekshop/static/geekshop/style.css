@@ -20,7 +20,7 @@ html, body {
 	width: 1366px;
 	max-width: 1366px;
 	margin: 0 auto;
-	min-height: 100%;
+	/*min-height: 100%;*/
 }
 
 .slider {
@@ -544,12 +544,13 @@ html, body {
 
 .footer {
 	height: 384px;
-/*  width: 1169px;   */
+    width: 1169px;
 	background-color: #f7f7f7;
 	padding-left: 99px;
 	padding-right: 98px;
 	margin: -384px auto 0;
 	clear: both;
+    box-sizing: content-box;
 }
 .footer form {
 	position: relative;
@@ -635,6 +636,7 @@ td:first-child {
 	text-align: left;
 	padding-left: 19px;
 	padding-right: 70px;
+	box-sizing: content-box;
 }
 .text-footer input:focus {
 	border-width: 1px;
@@ -717,10 +719,11 @@ td:first-child {
 }
 .location-1 {
 	height: 368px;
-	width: 368px;
+	width: 358px;
 	border: 1px solid #9c9c9c;
 	margin: 71px 28px 122px 0px;
 	float: left;
+	font: message-box;
 }
 .location-1:last-child {
 	margin: 71px 0px 122px 0px;

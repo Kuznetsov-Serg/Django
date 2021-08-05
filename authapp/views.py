@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .forms import ShopUserLoginForm, ShopUserEditForm, ShopUserRegisterForm, ShopUserChangePasswordForm
+from .models import ShopUser
 
 
 def login(request):
@@ -89,3 +90,4 @@ def password(request):
         'password_form': password_form
     }
     return render(request, 'authapp/password.html', context)
+
