@@ -35,11 +35,7 @@
                         </tfoot>
                         <tbody>
                         {% for category in objects %}
-                        {% if category.is_active %}
-                        <tr>
-                        {% else %}
-                        <tr style="color: darkgray">
-                        {% endif %}
+                        <tr style="{% if not category.is_active %}opacity: .5;{% endif %}">
                             <td>{{ category.name }}</td>
                             <td>{{ category.description }}</td>
                             <td class="text-center">
@@ -49,7 +45,6 @@
                                 <i class="fa fa-times-circle"></i>
                                 {% endif %}
                             </td>
-
                             <td class="text-center">
                                 <button class="button_add_to_basket">
                                     <a href={% url 'admin_staff:products' category.pk %} style="color: #f9fafb">

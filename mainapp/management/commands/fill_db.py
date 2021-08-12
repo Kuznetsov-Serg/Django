@@ -20,7 +20,7 @@ EXCEL_PATH = 'mainapp/import'
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        # fill_new_bd_from_EXCEL_file('catalog')   # Зальем новую БД с перечнем товаров и категорий (запускаем при изменении Excel-файла)
+        fill_new_bd_from_EXCEL_file('catalog')   # Зальем новую БД с перечнем товаров и категорий (запускаем при изменении Excel-файла)
 
         # categories = load_from_json('categories')
         # ProductCategory.objects.all().delete()
@@ -40,11 +40,9 @@ class Command(BaseCommand):
         #     new_product.save()
 
         # Создаем суперпользователя при помощи менеджера модели
-        user = get_object_or_404(ShopUser, username='kuznetsov')
-        user.delete()
-        # ttt = ShopUser.objects.all().find(username='kuznetsov')
-        # ttt.delete()
-        ShopUser.objects.create_superuser('kuznetsov', 'ksn1974@mail.ru', '1', age=33)
+        # user = get_object_or_404(ShopUser, username='kuznetsov')
+        # user.delete()
+        # ShopUser.objects.create_superuser('kuznetsov', 'ksn1974@mail.ru', '1', age=33)
 
 def load_from_json(file_name):
     with open(os.path.join(JSON_PATH, file_name + '.json'), 'r') as infile:

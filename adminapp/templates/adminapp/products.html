@@ -1,5 +1,6 @@
 {% extends 'adminapp/base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block content %}
 <main>
@@ -10,6 +11,19 @@
                 <i class="fa fa-table mr-1"></i>
                 {{ category.name|title }}
             </div>
+
+            <div class="paginator card-body" style="text-align: end;">
+                {% if objects.has_previous %}
+                <a href="{% url 'admin_staff:products_page' category.pk objects.previous_page_number %}">&larr;</a>
+                {% endif %}
+                <span class="current">
+				страница {{ objects.number }} из {{ objects.paginator.num_pages }}
+			  </span>
+                {% if objects.has_next %}
+                <a href="{% url 'admin_staff:products_page' category.pk objects.next_page_number %}">&rarr;</a>
+                {% endif %}
+            </div>
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
@@ -20,6 +34,7 @@
                             <th>Краткое описание</th>
                             <th>Цена</th>
                             <th>Количество</th>
+                            <th>Активный</th>
                             <th>Подробнее</th>
                             <th>Редактировать</th>
                             <th>Удалить</th>
@@ -32,6 +47,7 @@
                             <th>Краткое описание</th>
                             <th>Цена</th>
                             <th>Количество</th>
+                            <th>Активный</th>
                             <th>Подробнее</th>
                             <th>Редактировать</th>
                             <th>Удалить</th>
@@ -39,23 +55,31 @@
                         </tfoot>
                         <tbody>
                         {% for product in objects %}
-                        <tr>
+                        <tr style="{% if not product.is_active %}opacity: .5;{% endif %}">
                             <td>
-                                <img src="/media/{{ product.image }}" height=50px data-full_image_url="/media/{{ product.image }}" alt="img">
+                                <img src="{{ product.image|media_folder_products }}" height=50px
+                                     data-full_image_url="/media/{{ product.image }}" alt="img">
                             </td>
                             <td>{{ product.name }}</td>
                             <td>{{ product.short_desc }}</td>
                             <td>{{ product.price }}</td>
                             <td>{{ product.quantity }}</td>
                             <td class="text-center">
-                                <button class="button_add_to_basket">
+                                {% if product.is_active %}
+                                <i class="fa fa-check-circle"></i>
+                                {% else %}
+                                <i class="fa fa-times-circle"></i>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <button class="button_add_to_basket {% if not product.is_active %}invisible{% endif %}">
                                     <a href={% url 'admin_staff:product_read' product.pk %} style="color: #f9fafb">
                                     Подробно
                                     </a>
                                 </button>
                             </td>
                             <td class="text-center">
-                                <button class="button_add_to_basket">
+                                <button class="button_add_to_basket {% if not product.is_active %}invisible{% endif %}">
                                     <a href={% url 'admin_staff:product_update' product.pk %} style="color: #f9fafb">
                                     Редактировать
                                     </a>
@@ -64,11 +88,14 @@
                             <td class="text-center">
                                 <button class="button_add_to_basket">
                                     <a href={% url 'admin_staff:product_delete' product.pk %} style="color: #f9fafb">
-                                    Удалить
+                                    {% if product.is_active %}
+                                    удалить
+                                    {% else %}
+                                    восстановить
+                                    {% endif %}
                                     </a>
                                 </button>
                             </td>
-
                         </tr>
                         {% endfor %}
                         </tbody>
