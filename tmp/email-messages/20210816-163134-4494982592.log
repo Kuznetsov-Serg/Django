@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0J/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/?=
+ =?utf-8?b?0LjRgdC4IHRlc3RfdXNlcjMz?=
+From: webmaster@localhost
+To: ksn@ttt.rr
+Date: Mon, 16 Aug 2021 13:31:34 -0000
+Message-ID: <162912069485.3259.13644901888061876934@users-mbp.lan>
+
+Для подтверждения учетной записи test_user33 на портале             http://localhost:8000 перейдите по ссылке: 
+<a href="http://localhost:8000/auth/verify/ksn@ttt.rr/e3a3973676bd12f7deaf856ed4844fc103e64a6d/">Активировать</a>
+-------------------------------------------------------------------------------

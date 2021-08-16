@@ -1,0 +1,132 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Пользователи</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fa fa-table mr-1"></i>
+                Пользователи
+            </div>
+
+            {% if page_obj.has_other_pages %}
+            <nav class="list-pages paginator card-body" style="text-align: end;">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="button_add_to_basket"> &lt; </a>
+                {% endif %}
+                {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                <a class="page-num page-num-selected" style="color: gray;"> {{ p }}</a>
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                <a class="page-num" href="?page={{ p }}"> {{ p }} </a>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="button_add_to_basket"> &gt; </a>
+                {% endif %}
+            </nav>
+            <!--            <div class="paginator card-body" style="text-align: end;">-->
+            <!--                {% if objects.has_previous %}-->
+            <!--                <a href="{% url 'admin_staff:users_page' objects.previous_page_number %}">&larr;</a>-->
+            <!--                {% endif %}-->
+            <!--                <span class="current">-->
+            <!--				страница {{ page_obj.number }} из {{ paginator.page_range }}-->
+            <!--			  </span>-->
+            <!--                {% if objects.has_next %}-->
+            <!--                <a href="{% url 'admin_staff:users_page' objects.next_page_number %}">&rarr;</a>-->
+            <!--                {% endif %}-->
+            <!--            </div>-->
+            {% endif %}
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Аватарка</th>
+                            <th>Имя пользователя</th>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Адрес эл. почты</th>
+                            <th>Персонал сайта</th>
+                            <th>Активный</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Аватарка</th>
+                            <th>Имя пользователя</th>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Адрес эл. почты</th>
+                            <th>Персонал сайта</th>
+                            <th>Активный</th>
+                            <th></th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for user in objects %}
+                        {% if user.is_active %}
+                        <tr>
+                            {% else %}
+                        <tr style="color: darkgray">
+                            {% endif %}
+                            <td><img src="{{ user.avatar|media_folder_users }}" height=50px alt="img"></td>
+                            <td><a href="{% url 'admin_staff:user_update' user.id %}" style="color: dodgerblue">
+                                {{ user.username }}</a></td>
+                            <td>{{ user.first_name }}</td>
+                            <td>{{ user.last_name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td class="text-center">
+                                {% if user.is_staff %}
+                                <i class="fa fa-check-circle"></i>
+                                {% else %}
+                                <i class="fa fa-times-circle"></i>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if user.is_active %}
+                                <i class="fa fa-check-circle"></i>
+                                {% else %}
+                                <i class="fa fa-times-circle"></i>
+                                {% endif %}
+                            </td>
+                            <!--                            <td class="text-center">-->
+                            <!--                                {% if user.is_active %}-->
+                            <!--                                <button class="button_add_to_basket">-->
+                            <!--                                    <a href={% url 'admin_staff:user_update_password' user.pk %} style="color: #f9fafb">-->
+                            <!--                                    сменить пароль</a>-->
+                            <!--                                </button>-->
+                            <!--                                {% endif %}-->
+                            <!--                            </td>-->
+                            <td class="text-center">
+                                <button class="button_add_to_basket">
+                                    <a href={% url 'admin_staff:user_delete' user.pk %} style="color: #f9fafb">
+                                    {% if user.is_active %}
+                                    удалить
+                                    {% else %}
+                                    восстановить
+                                    {% endif %}
+                                    </a>
+                                </button>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'admin_staff:user_create' %}">
+                    <button class="btn btn-success">Создать пользователя</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

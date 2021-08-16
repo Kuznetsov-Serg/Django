@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mainapp',
+    'authapp',
+    'basketapp',
+    'adminapp',
 ]
+
+AUTH_USER_MODEL = 'authapp.ShopUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'mainapp.context_processors.basket',
             ],
         },
     },
@@ -106,6 +112,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
+LANGUAGE_CODE = 'ru-RU'
+LANGUAGES = [
+('en', 'English'),
+('ru', 'Russian'),
+]
+
 TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
@@ -123,6 +135,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'geekshop', 'static'),
 )
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -130,3 +148,24 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = '/auth/login/'
+
+DOMAIN_NAME = 'http://localhost:8000'
+
+# Для отправки почты в Django (Активация пользователя по e-mail)
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'dab16381fde968'
+EMAIL_HOST_PASSWORD = '4dfe8a24a8dd70'
+EMAIL_PORT = '2525'
+
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = False
+
+# альтернативный вариант с запуском локальных сервисов отслеживания
+# запуск сервера: sudo python -m smtpd -n -c DebuggingServer localhost:25
+# EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+
+#вариант логирования сообщений почты в виде файлов вместо отправки
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
+

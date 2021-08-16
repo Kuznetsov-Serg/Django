@@ -1,9 +1,42 @@
-<div class="header clearfix">
-    <a href="/" class="logo"></a>
-    <ul class="menu">
-        <li><a href="/" class="{% if request.resolver_match.view_name == 'index' %}active{% endif %}">домой</a></li>
-        <li><a href="{% url 'products:index' category_id=0 %}" class="{% if request.resolver_match.view_name == 'products:index' %}active{% endif %}">продукты</a></li>
-        <li><a href="{% url 'contacts' %}" class="{% if request.resolver_match.view_name == 'contacts' %}active{% endif %}">контакты</a></li>
-    </ul>
-    <a href="#" class="search"></a>
+
+<div class="container">
+	<div class="hero-white">
+        <div class="header clearfix">
+
+            <a href="/" class="logo"></a>
+
+            <ul class="menu" style="display: flex; align-items: baseline;">
+                <li><a href="/" class="{% if request.resolver_match.view_name == 'index' %}active{% endif %}">домой</a></li>
+                <li><a href="{% url 'products:index' %}" class="{% if request.resolver_match.view_name == 'products:index' %}active{% endif %}">продукты</a></li>
+                <li><a href="{% url 'contacts' %}" class="{% if request.resolver_match.view_name == 'contacts' %}active{% endif %}">контакты</a></li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'auth:edit' %}">
+                            <img src="/media/{{ user.avatar }}" style="width: 50px; border-radius: 50%;" class="rounded-circle">
+                            {{ user.first_name|default:'Пользователь' }}
+                        </a>
+                    </li>
+                    {% if basket %}
+                        <li><a href="{% url 'basket:view' %}" class="basket">
+                            &#22291; - {{ basket.0.total_cost|floatformat:0 }}р ({{ basket.0.total_quantity }} шт.)</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if user.is_superuser %}
+                <li>
+                    <a href="{% url 'admin_staff:users' %}">админка</a>
+                </li>
+                {% endif %}
+                <li>
+                    {% if user.is_authenticated %}
+                      <a href="{% url 'auth:logout' %}">выйти</a>
+                    {% else %}
+                      <a href="{% url 'auth:login' %}">войти</a>
+                    {% endif %}
+                </li>
+            </ul>
+            <a href="#" class="search"></a>
+        </div>
+    </div>
 </div>
+
+
