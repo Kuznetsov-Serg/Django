@@ -7,9 +7,12 @@ def media_folder_products(string):
     """
     Автоматически добавляет относительный URL-путь к медиафайлам продуктов
     products_images/product1.jpg --> /media/products_images/product1.jpg
+    если это не является ссылкой в интернете http:// https:// и т.д.
     """
     if not string:
         string = 'products_images/default.jpg'
+    elif string.name.find(':') != -1:
+        return string
 
     return f'{settings.MEDIA_URL}{string}'
 
@@ -19,10 +22,12 @@ def media_folder_users(string):
     """
     Автоматически добавляет относительный URL-путь к медиафайлам пользователей
     users_avatars/user1.jpg --> /media/users_avatars/user1.jpg
+    если это не является ссылкой в интернете http:// https:// и т.д.
     """
     if not string:
         string = 'users_avatars/default.jpg'
-
+    elif string.name.find(':') != -1:
+        return string
     return f'{settings.MEDIA_URL}{string}'
 
 

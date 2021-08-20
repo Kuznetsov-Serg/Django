@@ -1,3 +1,4 @@
+{% load my_tags %}
 
 <div class="container">
 	<div class="hero-white">
@@ -12,7 +13,7 @@
                 {% if user.is_authenticated %}
                     <li>
                         <a href="{% url 'auth:edit' %}">
-                            <img src="/media/{{ user.avatar }}" style="width: 50px; border-radius: 50%;" class="rounded-circle">
+                            <img src="{{ user.avatar|media_folder_users }}" style="width: 50px; border-radius: 50%;" class="rounded-circle">
                             {{ user.first_name|default:'Пользователь' }}
                         </a>
                     </li>

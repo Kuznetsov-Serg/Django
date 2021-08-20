@@ -2,23 +2,42 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto col-3">
-                <form class="form-horizontal" action="{% url 'auth:login' %}" method="post" >
-                    {% csrf_token %}
-                    {% if next %}
-                        <input type="hidden" name="next" value="{{ next }}">
-                    {% endif %}
-                    {{ login_form.as_p }}
-                    <button type="submit" class="btn btn-primary">Войти</button>
-                </form>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="mx-auto col-3">
+            <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
+                {% csrf_token %}
+                {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+                {{ login_form.as_p }}
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <button class="btn btn-round form-control">
+                    <a href="{% url 'auth:register' %}" class="">
+                        Зарегистрироваться
+                    </a>
+                </button>
+                <button class="btn btn-info form-control mb-2">
+                    <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/">
+                        Вход через ВКонтакте
+                    </a>
+                </button>
+                <button class="btn btn-info form-control mb-2">
+                    <a href="#">Login with Instagram</a>
+                </button>
+                <button class="btn btn-info form-control mb-2">
+                    <a href="{% url 'social:begin' 'facebook' %}?next=/">Login with Facebook
+                    </a>
+                </button>
+                <button class="btn btn-info form-control mb-2">
+                    <a href="{% url 'social:begin' 'odnoklassniki-oauth2' %}?next=/">Регистрация через Одноклассники
+                    </a>
+                </button>
+                <!--        <button class="btn btn-info mb-2">-->
+                <!--            <a href="#">Login with LinkedIn</a>-->
+                <!--        </button>-->
+            </form>
         </div>
-        <button class="btn btn-round form-control">
-        <a href="{% url 'auth:register' %}" class="">
-            зарегистрироваться
-        </a>
-    </button>
     </div>
+</div>
 {% endblock %}
