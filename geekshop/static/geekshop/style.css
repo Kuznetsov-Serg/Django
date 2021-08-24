@@ -50,7 +50,7 @@ html, body {
 .menu a {
 	color: #8c8c8c;
 	font-size: 14px;
-	font-weight: 700;
+/*	font-weight: 700; */
 	text-align: right;
 	text-transform: uppercase;
 	text-decoration: none;

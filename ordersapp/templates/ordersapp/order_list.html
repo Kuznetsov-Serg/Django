@@ -1,0 +1,118 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Заказы</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fa fa-table mr-1"></i>
+                Ваши заказы,
+                {% if user.first_name %}
+                {{ user.first_name|title}}
+                {% else %}
+                Пользователь
+                {% endif %}
+            </div>
+
+            {% if page_obj.has_other_pages %}
+            <nav class="list-pages paginator card-body" style="text-align: end;">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="button_add_to_basket"> &lt; </a>
+                {% endif %}
+                {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                <a class="page-num page-num-selected" style="color: gray;"> {{ p }}</a>
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                <a class="page-num" href="?page={{ p }}"> {{ p }} </a>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="button_add_to_basket"> &gt; </a>
+                {% endif %}
+            </nav>
+            {% endif %}
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Создан</th>
+                            <th>Обновлен</th>
+                            <th>Статус</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Создан</th>
+                            <th>Обновлен</th>
+                            <th>Статус</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for item in object_list %}
+                        {% if item.is_active %}
+                        <tr>
+                            {% else %}
+                        <tr style="color: darkgray">
+                            {% endif %}
+                            <td class="td1 orders_list">{{ item.pk }}</td>
+                            <td>{{ item.created|date:"Y-m-d H:i:s" }}</td>
+                            <td>{{ item.updated|date:"Y-m-d H:i:s" }}</td>
+                            <td>{{ item.get_status_display }}</td>
+                            <td class="text-center">
+                                <button class="button_add_to_basket">
+                                    <a href="{% url 'order:order_read' item.pk %}" style="color: #f9fafb">
+                                        посмотреть
+                                    </a>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                {% if item.status == 'FM' %}
+                                <button class="button_add_to_basket">
+
+                                    <a href="{% url 'order:order_update' item.pk %}" style="color: #f9fafb">
+                                        редактировать
+                                    </a>
+                                </button>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if item.status == 'FM' %}
+                                <button class="button_add_to_basket">
+                                    <a href="{% url 'order:order_delete' item.pk %}" style="color: #f9fafb">
+                                        удалить
+                                    </a>
+                                </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'index' %}">
+                    <button class="btn btn-success">на главную</button>
+                </a>
+                <a href="{% url 'order:order_create' %}">
+                    <button class="btn btn-success">Создать заказ</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+

@@ -36,11 +36,11 @@ def quantity_in_basket(product, basket):
     """
     Определяет, сколько конкретного товара уже в корзине
     """
-    item = basket.filter(product=product)
-    if (item):
-        return f'&#22291; {item[0].quantity}шт'
-        # return f'в корзине {item[0].quantity}шт'
-    else:
-        return ''
+    if str(type(basket)).find('QuerySet') != -1:    # Basket является QuerySet (пользователь залогинился и корзина есть)
+        item = basket.filter(product=product)
+        if (item):                                  # Корзина не пустая
+            return f'&#22291; {item[0].quantity}шт'
+            # return f'в корзине {item[0].quantity}шт'
+    return ''
 
 register.filter('media_folder_products', media_folder_products)

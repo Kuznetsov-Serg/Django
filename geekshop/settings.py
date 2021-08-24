@@ -44,12 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'social_django',
+
     'mainapp',
     'authapp',
     'basketapp',
     'adminapp',
-
-    'social_django',
+    'ordersapp',
 ]
 
 AUTH_USER_MODEL = 'authapp.ShopUser'
@@ -171,7 +172,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-
 ]
 
 MEDIA_URL = '/media/'
