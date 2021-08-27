@@ -6,7 +6,18 @@ from mainapp.models import Product
 
 # Create your models here.
 
+# Класс для возвращения товара в базу при удалении корзины
+class BasketQuerySet(models.QuerySet):
+    def delete(self, *args, **kwargs):      # Почему-то не работает!!!
+        for object in self:
+            object.product.quantity += object.quantity
+            object.product.save()
+        super(BasketQuerySet, self).delete(*args, **kwargs)
+
+
 class Basket(models.Model):
+    objects = BasketQuerySet.as_manager()    # расширяем опции класса (при delete ваызывается...)
+
     # user = models.ForeignKey(ShopUser)                  # идентично
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -66,3 +77,16 @@ class Basket(models.Model):
         else:
             quantity = 0
         return quantity
+
+    @staticmethod
+    def get_item(pk):
+        return Basket.objects.filter(pk=pk).first()
+
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.product.quantity -= self.quantity - self.__class__.get_item(self.pk).quantity
+        else:
+            self.product.quantity -= self.quantity
+        self.product.save()
+        super(self.__class__, self).save(*args, **kwargs)

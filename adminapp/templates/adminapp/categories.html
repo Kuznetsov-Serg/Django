@@ -64,11 +64,11 @@
                             <td class="text-center">
                                 <button class="button_add_to_basket">
                                     <a href={% url 'admin_staff:category_delete' category.pk %} style="color: #f9fafb">
-                                        {% if category.is_active %}
-                                            удалить
-                                        {% else %}
-                                            восстановить
-                                        {% endif %}
+                                    {% if category.is_active %}
+                                    удалить
+                                    {% else %}
+                                    восстановить
+                                    {% endif %}
                                     </a>
                                 </button>
                             </td>
@@ -80,6 +80,9 @@
             </div>
 
             <div class="card-footer">
+                <a href="{% url 'index' %}">
+                    <button class="btn btn-success">на главную</button>
+                </a>
                 <a href="{% url 'adminapp:category_create' %}">
                     <button class="btn btn-success">Создать категорию</button>
                 </a>

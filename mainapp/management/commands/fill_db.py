@@ -42,7 +42,7 @@ class Command(BaseCommand):
         # Создаем суперпользователя при помощи менеджера модели
         # user = get_object_or_404(ShopUser, username='kuznetsov')
         # user.delete()
-        # ShopUser.objects.create_superuser('kuznetsov', 'ksn1974@mail.ru', '1', age=33)
+        ShopUser.objects.create_superuser('kuznetsov', 'ksn1974@mail.ru', '1', age=33)
 
 def load_from_json(file_name):
     with open(os.path.join(JSON_PATH, file_name + '.json'), 'r') as infile:

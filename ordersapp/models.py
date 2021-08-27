@@ -3,6 +3,15 @@ from django.db import models
 
 from mainapp.models import Product
 
+# Класс для корректировки остатков товаров
+class OrderItemQuerySet(models.QuerySet):
+    def delete(self, *args, **kwargs):
+        for object in self:
+            object.product.quantity += object.quantity
+            object.product.save()
+        super(OrderItemQuerySet, self).delete(*args, **kwargs)
+
+
 
 class Order(models.Model):
     FORMING = 'FM'
@@ -73,6 +82,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+
+    objects = OrderItemQuerySet.as_manager()    # расширяем опции класса (при delete ваызывается...)
     order = models.ForeignKey(
         Order,
         related_name='orderitems',
@@ -88,5 +99,15 @@ class OrderItem(models.Model):
         default=0,
     )
 
+    @staticmethod
+    def get_item(pk):
+        return OrderItem.objects.filter(pk=pk).first()
+
+    @property
     def get_product_cost(self):
         return self.product.price * self.quantity
+
+    def delete(self):
+        self.product.quantity += self.quantity      # вернем остатки в товаре
+        self.product.save()
+        super(self.__class__, self).delete()        # продолжим выполнение по встроенному сценарию

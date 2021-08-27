@@ -12,7 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from authapp.models import ShopUser
 from mainapp.models import Product, ProductCategory
-from authapp.forms import ShopUserRegisterForm, ShopUserEditForm
+from authapp.forms import ShopUserCreateForm, ShopUserEditForm
 from adminapp.forms import ShopUserChangePasswordForm, ProductCategoryForm, ProductForm
 
 
@@ -72,7 +72,7 @@ class UserListView(LoginRequiredMixin, ListView):
 
 class UserCreateView(LoginRequiredMixin, CreateView):
     model = ShopUser
-    form_class = ShopUserRegisterForm
+    form_class = ShopUserCreateForm
     template_name = 'adminapp/user_update.html'
     success_url = reverse_lazy('admin_staff:users')
 

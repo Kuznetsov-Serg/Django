@@ -103,6 +103,9 @@
                 </div>
             </div>
             <div class="card-footer">
+                <a href="{% url 'index' %}">
+                    <button class="btn btn-success">на главную</button>
+                </a>
                 <a href="{% url 'admin_staff:product_create' category.pk %}">
                     <button class="btn btn-success">Создать товар</button>
                 </a>
