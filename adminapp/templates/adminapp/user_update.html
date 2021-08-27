@@ -1,0 +1,37 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Пользователи</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fa fa-table mr-1"></i>
+                {{ type_operation }}
+            </div>
+            <div class="row">
+                <div class="user_avatar">
+<!--                    <img src="/media/{{ user_avatar }}" class="rounded-circle" style="height: 300px;>-->
+                    <img src="{{ user_avatar|media_folder_users }}" class="rounded-circle" style="height: 300px;>
+                </div>
+            </div>
+            <div class=" card-body">
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div style="display: flex">
+                            <input class="form-control" type="submit" value={{ type_operation }} style="color: red">
+                            <button class="form-control">
+                                <a href="{% url 'admin_staff:users' %}">
+                                    выйти без сохранения
+                                </a>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</main>
+{% endblock %}

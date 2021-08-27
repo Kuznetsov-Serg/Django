@@ -1,13 +1,10 @@
 {% extends 'geekshop/base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block content %}
 
-<div class="container">
-	<div class="hero-white">
-		{% include 'geekshop/includes/inc_main_menu.html' %}
-	</div>
-</div>
+{% include 'geekshop/includes/inc_main_menu.html' %}
 
 <div class="details">
     {% include 'mainapp/includes/inc_category_menu.html' %}
@@ -15,21 +12,21 @@
     <div class="details-products">
         <div class="details-slider">
             <div class="slider-product">
-                <img src="/static/geekshop/img/slider1.jpg">
+                <img src="{{ hot_product.image|media_folder_products }}" style="width: 100%">
             </div>
             <div class="slider-control">
                 <div class="block">
-                    <a href="#"><img src="/static/geekshop/img/controll.jpg" alt="">
+                    <a href="#"><img src="{{ hot_product.image|media_folder_products }}" alt="" style="width: 100%">
                         <div class="text"></div>
                     </a>
                 </div>
                 <div class="block">
-                    <a href="#"><img src="/static/geekshop/img/controll1.jpg" alt="">
+                    <a href="#"><img src="{{ hot_product.image|media_folder_products }}" alt="" style="width: 100%">
                         <div class="text"></div>
                     </a>
                 </div>
                 <div class="block">
-                    <a href="#"><img src="/static/geekshop/img/controll2.jpg" alt="">
+                    <a href="#"><img src="{{ hot_product.image|media_folder_products }}" alt="" style="width: 100%">
                         <div class="text"></div>
                     </a>
                 </div>
@@ -37,48 +34,98 @@
         </div>
 
         <div class="description">
-            <h3 class="big-bold">Отличный стул</h3>
+            <h3 class="big-bold">{{ hot_product.name }}</h3>
             <h3 class="red">горячее предложение</h3>
-            <p class="price"> 2585.9 <span>руб</span></p>
-            <a href="#" class="red-button">
+            <p class="price">{{ hot_product.price }}<span>руб</span></p>
+            <a href="{% url 'basket:add' hot_product.pk %}" class="red-button">
                 заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </a>
             <div class="description-text">
-                <p>Расположитесь комфортно.</p>
-                <p>Отличное качество материалов
-                позволит вам это.</p>
-                <p>Различные цвета</p>
-                <p>высочайший уровень
-                эргономики и прочность.</p>
+                <p>{{ hot_product.description }}</p>
             </div>
         </div>
     </div>
 
-    <div class="related">
+    <div class="featured mt-5 products_list" style="margin-top: 50px;">
+        {% if category %}
         <div class="title clearfix">
-            <h2>Похожие продукты</h2>
-            <a class="explore" href="#">показать все <img src="/static/geekshop/img/arrow.png" alt=""></a>
+            <h2>
+                Категория: "{{ category.name|title }}"
+            </h2>
         </div>
-        <div class="related-products clearfix">
-            {% for product in related_products %}
-                {% if forloop.counter <= 3 or category_id != 0 %}
-                    {% if product.category_id == category_id or category_id == 0 %}
-                    {#% if product.category_id|stringformat:"s" == category_id or category_id == '0' %#}
-                        <div class="block">
-                            <a href="#"><img src="/media/{{ product.image }}" style="width: -webkit-fill-available" alt="">
-                                <div class="text">
-                                    <img src="/static/geekshop/img/icon-hover.png" alt="img">
-                                    <h4>{{ product.name }}</h4>
-                                    <p>{{ product.short_desc }} </p>
-                                    <p>{{ product.category.name }} </p>
-                                </div>
-                            </a>
+        <div class="paginator related" style="text-align: end;">
+            {% if products.has_previous %}
+            <a href="{% url 'products:page' category.pk products.previous_page_number %}">&larr;</a>
+            {% endif %}
+            <span class="current">
+				страница {{ products.number }} из {{ products.paginator.num_pages }}
+			  </span>
+            {% if products.has_next %}
+            <a href="{% url 'products:page' category.pk products.next_page_number %}">&rarr;</a>
+            {% endif %}
+        </div>
+        <div class="related ">
+            <table class="product_table" id="product_table_id">
+                <tbody>
+                <tr>
+                    <th class="table_head">Наименование</th>
+                    <th class="table_head">Категория</th>
+                    <th class="table_head">краткое описание</th>
+                    <th class="table_head">Цена</th>
+                    <th class="table_head" style='padding:0; white-space:normal;'><img
+                            src="/static/geekshop/img/press_img.png" height=50px alt="Для просмотра нажмите"></th>
+                    <th class="table_head">подробности</th>
+                    <th class="table_head">корзина</th>
+                </tr>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category.name }}</td>
+                    <td>{{ product.short_desc }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>
+                        <img src="{{ product.image|media_folder_products }}" height=50 data-full_image_url="/media/{{ product.image }}"
+                             alt="img">
+                        <!--                                    <img src="/media/{{ product.image }}" height=50 data-full_image_url="/media/{{ product.image }}" onclick="openImage('/media/{{ product.image }}')" alt="img">-->
+                    </td>
+                    <td><a href="{% url 'products:product' product.pk %}">
+                        <button class="button_add_to_basket" data-id="{{ product.pk }}">подробно</button>
+                    </a></td>
+                    <td>
+                        {% autoescape off %}<a>{{ product|quantity_in_basket:basket }}</a>{% endautoescape %}
+                        <a href="{% url 'basket:add' product.pk %}">
+                            <button class="button_add_to_basket" data-id="{{ product.pk }}">в_корзину</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <div class="related">
+            <div class="title clearfix">
+                <h2>Похожие продукты</h2>
+                <a class="explore" href="#">показать все <img src="/static/geekshop/img/arrow.png" alt=""></a>
+            </div>
+            <div class="related-products clearfix">
+                {% for product_rel in related_products %}
+                <div class="block">
+                    <a href="{% url 'products:product' product_rel.pk %}"><img src="/media/{{ product_rel.image }}"
+                                                                               style="width: -webkit-fill-available"
+                                                                               alt="">
+                        <div class="text">
+                            <img src="/static/geekshop/img/icon-hover.png" alt="img">
+                            <h4>{{ product_rel.name }}</h4>
+                            <p>{{ product_rel.short_desc }} </p>
+                            <p>{{ product_rel.category.name }} </p>
                         </div>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

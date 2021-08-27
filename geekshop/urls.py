@@ -24,9 +24,15 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('products<int:category_id>/', include('mainapp.urls', namespace='products'), name='products'),
+    path('auth/', include('authapp.urls', namespace='auth')),
+    path('admin_staff/', include('adminapp.urls', namespace='admin_staff'), name='admin_staff'),
+    # path('products<int:pk>/', include('mainapp.urls', namespace='products'), name='products'),
+    path('products/', include('mainapp.urls', namespace='products'), name='products'),
+    path('basket/', include('basketapp.urls', namespace='basket'), name='basket'),
+    path('order/', include('ordersapp.urls', namespace='order'), name='order'),
     path('', index, name='index'),
-    path('contacts/', contacts, name='contacts')
+    path('contacts/', contacts, name='contacts'),
+    path('', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:

@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+# Для работы с переменными среды окружения, в частности - регистрации через соцсети методои .env
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zkn)*5*5%*es92fm#n_m3gffgz5wj&)t+yvhxt0o=b+#h3_m8t'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,8 +44,39 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'social_django',
+
     'mainapp',
+    'authapp',
+    'basketapp',
+    'adminapp',
+    'ordersapp',
 ]
+
+AUTH_USER_MODEL = 'authapp.ShopUser'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+    # 'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.odnoklassniki.OdnoklassnikiOAuth2',
+]
+
+LOGIN_ERROR_URL = '/'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'authapp.pipeline.save_user_profile',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +86,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'geekshop.urls'
@@ -65,6 +102,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+                'mainapp.context_processors.basket',
             ],
         },
     },
@@ -106,6 +146,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
+LANGUAGE_CODE = 'ru-RU'
+LANGUAGES = [
+('en', 'English'),
+('ru', 'Russian'),
+]
+
 TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
@@ -123,6 +169,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'geekshop', 'static'),
 )
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -130,3 +181,70 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = '/auth/login/'
+
+DOMAIN_NAME = 'http://localhost:8000'
+
+# Для отправки почты в Django (Активация пользователя по e-mail)
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = '2525'
+
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = False
+
+
+# ID приложения для (https://vk.com)
+#
+# Защищённый ключ
+#
+
+# альтернативный вариант с запуском локальных сервисов отслеживания
+# запуск сервера: sudo python -m smtpd -n -c DebuggingServer localhost:25
+# EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+
+#вариант логирования сообщений почты в виде файлов вместо отправки
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
+
+# Для регистрации через соцсеть
+# Вариант с JSON-файлом
+# SOCIAL_AUTH_VK_OAUTH2_KEY = VK['SOCIAL_AUTH_VK_OAUTH2_KEY']
+# SOCIAL_AUTH_VK_OAUTH2_SECRET = VK['SOCIAL_AUTH_VK_OAUTH2_SECRET']
+
+# Вариант с файлом окружения .env
+# vk.com
+SOCIAL_AUTH_VK_OAUTH2_KEY = env('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = env('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+# https://ok.ru
+SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_KEY = env('SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_KEY')
+SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_SECRET = env('SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_SECRET')
+SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_PUBLIC_NAME = env('SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_PUBLIC_NAME')
+SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('about', 'birthday'),
+]
+
+# https://www.facebook.com
+SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+    'fields': 'id, name, email, picture.type(large), link'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'

@@ -1,0 +1,227 @@
+[
+  {
+      "category": "дом",
+      "name": "лампа",
+      "short_desc": "лампа белая чухонская",
+      "image": "products_images/product-01.jpg",
+      "description": "овальная лампа настольного типа",
+      "price": "100.00",
+      "quantity": 10
+  },
+  {
+      "category": "офис",
+      "name": "стул",
+      "short_desc": "стул синий",
+      "image": "products_images/product-02.jpg",
+      "description": "отличные стулья впишутся в любой интерьер",
+      "price": "200.00",
+      "quantity": 12
+  },
+  {
+      "category": "модерн",
+      "name": "чайник",
+      "short_desc": "чайник белый наклонный",
+      "image": "products_images/product-03.jpg",
+      "description": "супермощный чайник для церемоний",
+      "price": "300.00",
+      "quantity": 5
+  },
+  {
+      "category": "классика",
+      "name": "диван",
+      "short_desc": "диван серый обеденный",
+      "image": "products_images/product-04.jpg",
+      "description": "на диване можно \"все\"",
+      "price": "400.00",
+      "quantity": 7
+  },
+  {
+      "category": "прочее",
+      "name": "стул",
+      "short_desc": "стул красный - опасный",
+      "image": "products_images/product-05.jpg",
+      "description": "я бы сказал - табурет, но стул",
+      "price": "500.00",
+      "quantity": 3
+  },
+  {
+      "category": "дом",
+      "name": "часы",
+      "short_desc": "часы настенные",
+      "image": "products_images/product-06.jpg",
+      "description": "часы без циферок - для \"счастливых\"",
+      "price": "600.00",
+      "quantity": 5
+  },
+  {
+      "category": "офис",
+      "name": "люстра",
+      "short_desc": "люстра потолковая",
+      "image": "products_images/product-07.jpg",
+      "description": "люстра со свернутой \"башкой\"",
+      "price": "700.00",
+      "quantity": 3
+  },
+  {
+      "category": "модерн",
+      "name": "подушка",
+      "short_desc": "подушка красная",
+      "image": "products_images/product-08.jpg",
+      "description": "странная подушка для маленькой лягушки",
+      "price": "800.00",
+      "quantity": 6
+  },
+  {
+      "category": "классика",
+      "name": "торшер",
+      "short_desc": "торшер прикольный",
+      "image": "products_images/product-09.jpg",
+      "description": "архаизм и пережиток прошлого",
+      "price": "900.00",
+      "quantity": 4
+  },
+  {
+      "category": "прочее",
+      "name": "кресло",
+      "short_desc": "кресло белое",
+      "image": "products_images/product-10.jpg",
+      "description": "кресло для пиженов",
+      "price": "1000.00",
+      "quantity": 23
+  },
+  {
+      "category": "дом",
+      "name": "лампа",
+      "short_desc": "лампа настольная",
+      "image": "products_images/product-11.jpg",
+      "description": "лампа с изогнутыми линиями - ЭЛЕГАНТ",
+      "price": "1100.00",
+      "quantity": 11
+  },
+  {
+      "category": "офис",
+      "name": "бра",
+      "short_desc": "бра конусообразная",
+      "image": "products_images/product-12.jpg",
+      "description": "бра классический",
+      "price": "1200.00",
+      "quantity": 3
+  },
+  {
+      "category": "модерн",
+      "name": "посуда",
+      "short_desc": "чашка для измельчения",
+      "image": "products_images/product-13.jpg",
+      "description": "для рабыни Изауры - лучшее применение",
+      "price": "1300.00",
+      "quantity": 6
+  },
+  {
+      "category": "классика",
+      "name": "ваза",
+      "short_desc": "ваза белая (косая)",
+      "image": "products_images/product-14.jpg",
+      "description": "косое горлышко - изящный дизайн",
+      "price": "1400.00",
+      "quantity": 7
+  },
+  {
+      "category": "прочее",
+      "name": "люстра",
+      "short_desc": "лампочка Ильича",
+      "image": "products_images/product-15.jpg",
+      "description": "в цеху такие лампы были…",
+      "price": "1500.00",
+      "quantity": 34
+  },
+  {
+      "category": "дом",
+      "name": "лампа",
+      "short_desc": "лампа белая чухонская",
+      "image": "products_images/product-01.jpg",
+      "description": "овальная лампа настольного типа",
+      "price": "1600.00",
+      "quantity": 10
+  },
+  {
+      "category": "офис",
+      "name": "стул",
+      "short_desc": "стул синий",
+      "image": "products_images/product-02.jpg",
+      "description": "отличные стулья впишутся в любой интерьер",
+      "price": "1700.00",
+      "quantity": 5
+  },
+  {
+      "category": "модерн",
+      "name": "чайник",
+      "short_desc": "чайник белый наклонный",
+      "image": "products_images/product-03.jpg",
+      "description": "супермощный чайник для церемоний",
+      "price": "1800.00",
+      "quantity": 4
+  },
+  {
+      "category": "классика",
+      "name": "диван",
+      "short_desc": "диван серый обеденный",
+      "image": "products_images/product-04.jpg",
+      "description": "на диване можно \"все\"",
+      "price": "1900.00",
+      "quantity": 2
+  },
+  {
+      "category": "прочее",
+      "name": "стул",
+      "short_desc": "стул краный - опасный",
+      "image": "products_images/product-05.jpg",
+      "description": "я бы сказал - табурет, но стул",
+      "price": "2000.00",
+      "quantity": 43
+  },
+  {
+      "category": "дом",
+      "name": "часы",
+      "short_desc": "часы настенные",
+      "image": "products_images/product-06.jpg",
+      "description": "часы без циферок - для \"счастливых\"",
+      "price": "2100.00",
+      "quantity": 13
+  },
+  {
+      "category": "офис",
+      "name": "люстра",
+      "short_desc": "люстра потолковая",
+      "image": "products_images/product-07.jpg",
+      "description": "люстра со свернутой \"башкой\"",
+      "price": "2200.00",
+      "quantity": 11
+  },
+  {
+      "category": "модерн",
+      "name": "подушка",
+      "short_desc": "подушка красная",
+      "image": "products_images/product-08.jpg",
+      "description": "странная подушка для маленькой лягушки",
+      "price": "2300.00",
+      "quantity": 8
+  },
+  {
+      "category": "классика",
+      "name": "торшер",
+      "short_desc": "торшер прикольный",
+      "image": "products_images/product-09.jpg",
+      "description": "архаизм и пережиток прошлого",
+      "price": "2400.00",
+      "quantity": 4
+  },
+  {
+      "category": "прочее",
+      "name": "кресло",
+      "short_desc": "кресло белое",
+      "image": "products_images/product-10.jpg",
+      "description": "кресло для пиженов",
+      "price": "2500.00",
+      "quantity": 1
+  }
+]
