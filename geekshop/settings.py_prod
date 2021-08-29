@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+# для исключения косяков на deploy, типа "Error loading MySQLdb module"
+import pymysql
+pymysql.install_as_MySQLdb()
+
+
 # Для работы с переменными среды окружения, в частности - регистрации через соцсети методои .env
 import environ
 env = environ.Env()
@@ -124,11 +129,17 @@ DATABASES = {
     'default': {
         'NAME': 'geekshop',
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'postgres',
-        # 'PASSWORD': 'geekbrains',
-        # 'HOST': 'localhost'
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': 'kuznetsov1974.mysql.pythonanywhere-services.com'
     }
-
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'kuznetsov1974$geekshopp',
+    #     'USER': env('DB_USER'),
+    #     'PASSWORD': env('DB_PASSWORD'),
+    #     'HOST': 'kuznetsov1974.mysql.pythonanywhere-services.com'
+    # }
 }
 
 
@@ -173,9 +184,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'geekshop', 'static'),
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'geekshop', 'static')
+# )STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'geekshop', 'static'),
+# )
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
