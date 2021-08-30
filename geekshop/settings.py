@@ -15,6 +15,8 @@ from pathlib import Path
 
 # Для работы с переменными среды окружения, в частности - регистрации через соцсети методои .env
 import environ
+import social_core.backends.telegram
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -31,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -62,7 +64,9 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.instagram.InstagramOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.odnoklassniki.OdnoklassnikiOAuth2',
+    'social_core.backends.telegram.TelegramAuth',
 ]
+
 
 LOGIN_ERROR_URL = '/'
 
@@ -246,5 +250,8 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('picture', 'picture'),
     ('link', 'profile_url'),
 ]
+
+# Telegram
+SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = env('SOCIAL_AUTH_TELEGRAM_BOT_TOKEN')
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'

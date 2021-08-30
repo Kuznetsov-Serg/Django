@@ -6,9 +6,10 @@ Pillow
 social-auth-app-django
 django-environ
 requests
+openpyxl
+pandas
 psycopg2-binary
 mysqlclient==2.0.3
 pymysql==1.0.2
-openpyxl
-pandas
+
 

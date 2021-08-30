@@ -129,9 +129,7 @@ DATABASES = {
     'default': {
         'NAME': 'geekshop',
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': 'kuznetsov1974.mysql.pythonanywhere-services.com'
+        'USER': 'postgres',
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -184,7 +182,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'geekshop', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # )STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'geekshop', 'static'),
 # )
