@@ -1,12 +1,12 @@
 from django.contrib import auth
 from django.db import transaction
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from django.core.mail import send_mail
 from django.conf import settings
-from authapp.models import ShopUser
+from authapp.models import ShopUser, ShopUserProfile
 
 from .forms import ShopUserLoginForm, ShopUserEditForm, ShopUserRegisterForm, ShopUserChangePasswordForm, \
     ShopUserProfileEditForm
@@ -134,3 +134,50 @@ def verify(request, email, activation_key):
     except Exception as err:
         print(f'error activation user : {err.args}')
         return HttpResponseRedirect(reverse('index'))
+
+
+# def save_user_from_telegram(request, *args, **kwargs):
+#     try:
+#         data = request.GET
+#         if data['username'] and data['id']:
+#             username = f"{data['username']} (telegram_id:{data['id']})"
+#             # user = ShopUser.objects.get(username=username)
+#             # user = ShopUser.objects.all().filter(username=username)
+#             user = get_object_or_404(ShopUser, username=username)
+#     except Exception as err:
+#         user = ShopUser(
+#             username=username,
+#             first_name=data['first_name'],
+#             last_name=data['last_name'],
+#             avatar=data['photo_url'],
+#         )
+#         user.save()
+#
+#     auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+#     if 'next' in request.POST.keys():
+#         return HttpResponseRedirect(request.POST['next'])
+#     else:
+#         return HttpResponseRedirect(reverse('index'))
+#
+#     return HttpResponseRedirect(reverse('index'))
+
+
+def telegram_login(request, *args, **kwargs):
+    try:
+        data = request.GET
+        if data['username'] and data['id']:
+            username = f"{data['username']} (telegram_id:{data['id']})"
+            # user = ShopUser.objects.get(username=username)
+            # user = ShopUser.objects.all().filter(username=username)
+            user = get_object_or_404(ShopUser, username=username)
+    except Exception as err:
+        user = ShopUser(
+            username=username,
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            avatar=data['photo_url'],
+        )
+        user.save()
+
+    auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    return HttpResponseRedirect(reverse('index'))

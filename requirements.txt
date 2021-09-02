@@ -9,7 +9,14 @@ requests
 openpyxl
 pandas
 psycopg2-binary
+
+django-debug-toolbar
+django-debug-toolbar-template-profiler
+django-extentions
+
+
 mysqlclient==2.0.3
 pymysql==1.0.2
+#perconamanager
 
 

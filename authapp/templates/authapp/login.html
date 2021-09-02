@@ -1,6 +1,7 @@
 {% extends 'authapp/base.html' %}
 {% load static %}
 
+
 {% block content %}
 <div class="container">
     <div class="row">
@@ -30,28 +31,35 @@
                 <!--                    </a>-->
                 <!--                </button>-->
                 <button class="btn btn-info form-control mb-2">
-                    <a href="{% url 'social:begin' 'odnoklassniki-oauth2' %}?next=/">Регистрация через Одноклассники
-                    </a>
+                    <a href="{% url 'social:begin' 'odnoklassniki-oauth2' %}?next=/">Регистрация через Одноклассники</a>
                 </button>
-                <!--                <button class="btn btn-info form-control mb-2">-->
-
-                <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="login_django_bot"
-                        data-size="medium" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
-                <script type="text/javascript">
-                    function onTelegramAuth(user) {alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');}
-                </script>
 
 <!--                <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="login_django_bot"-->
-<!--                        data-size="medium" data-auth-url="http://2d1e-212-176-232-203.ngrok.io/auth/complete/telegram"-->
+<!--                        data-size="medium" data-auth-url="http://7832-212-176-232-203.ngrok.io/auth/complete/telegram"-->
 <!--                        data-request-access="write"></script>-->
 
-                <a href="{% url 'social:begin' 'telegram' %}?next=/">Регистрация через Telegram</a>
+<!--                <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="login_django_bot"-->
+<!--                        data-size="medium" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>-->
+                <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="login_django_bot"
+                        data-size="medium" data-auth-url="{% url 'authapp:telegram_login' %}"
+                        data-request-access="write"></script>
+
+                <script type="text/javascript">
+                    function onTelegramAuth(user) {alert('Logged in as ' + user.first_name + ' ' + user.last_name +
+                    ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');}
+               </script>
+
+                <button class="btn btn-info form-control mb-2">
+                    <a href="{% url 'social:begin' 'telegram' %}?next=/">Регистрация через Telegram</a>
+                </button>
+
 
                 <!--                </button>-->
                 <!--        <button class="btn btn-info mb-2">-->
                 <!--            <a href="#">Login with LinkedIn</a>-->
                 <!--        </button>-->
-            </form>
+
+             </form>
         </div>
     </div>
 </div>
