@@ -85,6 +85,13 @@ if DEBUG:
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
 
+    INTERNAL_IPS = [
+        # ...
+        '127.0.0.1',
+        '194.67.90.228',    #  адреса, с которых разрешено работать debug_toolbar
+        # ...
+    ]
+
 
 AUTH_USER_MODEL = 'authapp.ShopUser'
 

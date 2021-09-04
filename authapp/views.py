@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -65,6 +66,7 @@ def register(request):
     return render(request, 'authapp/register.html', context)
 
 @transaction.atomic
+@login_required
 def edit(request):
     title = 'профиль'
 

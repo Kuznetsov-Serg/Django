@@ -68,7 +68,8 @@ class Product(models.Model):
 
     @staticmethod
     def get_items():
-        return Product.objects.filter(is_active=True).order_by('category', 'name')
+        # return Product.objects.filter(is_active=True).order_by('category', 'name')
+        return Product.objects.filter(is_active=True, category__is_active=True).select_related('category').order_by('category', 'name')
 
     class Meta:
         verbose_name = 'товар'

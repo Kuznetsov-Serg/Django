@@ -36,33 +36,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+LOW_CACHE = True
 
 ALLOWED_HOSTS = ['*']
+ROOT_URLCONF = 'geekshop.urls'
+AUTH_USER_MODEL = 'authapp.ShopUser'
 
+# Default profile url
+LOGIN_REDIRECT_URL = reverse_lazy('authapp/profile')
+LOGIN_ERROR_URL = '/'
 
-# Application definition
+WSGI_APPLICATION = 'geekshop.wsgi.application'
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'social_django',
-
-    'debug_toolbar',
-    'template_profiler_panel',
-    'django_extensions',
-
-    'mainapp',
-    'authapp',
-    'basketapp',
-    'adminapp',
-    'ordersapp',
-]
 
 if DEBUG:
     def show_toolbar(request):
@@ -88,8 +74,36 @@ if DEBUG:
         'debug_toolbar.panels.profiling.ProfilingPanel',
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
+    # INTERNAL_IPS = [
+    #     # ...
+    #     '127.0.0.1',
+    #     '194.67.90.228',    #  адреса, с которых разрешено работать debug_toolbar
+    #     # ...
+    # ]
 
-AUTH_USER_MODEL = 'authapp.ShopUser'
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'social_django',
+
+    'debug_toolbar',
+    'template_profiler_panel',
+    'django_extensions',
+
+    'mainapp',
+    'authapp',
+    'basketapp',
+    'adminapp',
+    'ordersapp',
+]
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -101,10 +115,6 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.telegram.TelegramAuth',
 ]
 
-LOGIN_ERROR_URL = '/'
-
-# Default profile url
-LOGIN_REDIRECT_URL = reverse_lazy('authapp/profile')
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -130,8 +140,6 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'geekshop.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -150,8 +158,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'geekshop.wsgi.application'
 
 
 # Database
@@ -219,9 +225,9 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# )STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'geekshop', 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',

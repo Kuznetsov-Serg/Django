@@ -84,10 +84,16 @@
 /admin_staff/users/update/<int:pk>/	adminapp.views.UserUpdateView	admin_staff:user_update
 /admin_staff/users/update/password/	adminapp.views.UserUpdatePassword	admin_staff:user_update_password
 /admin_staff/users/update/password/<int:pk>/	adminapp.views.UserUpdatePassword	admin_staff:user_update_password
+/auth/auth/complete/<str:backend>/	social_django.views.complete	auth:social:complete
+/auth/auth/disconnect/<str:backend>/	social_django.views.disconnect	auth:social:disconnect
+/auth/auth/disconnect/<str:backend>/<int:association_id>/	social_django.views.disconnect	auth:social:disconnect_individual
+/auth/auth/login/<str:backend>/	social_django.views.auth	auth:social:begin
 /auth/edit/	authapp.views.edit	auth:edit
 /auth/login/	authapp.views.login	auth:login
 /auth/logout/	authapp.views.logout	auth:logout
+/auth/profile/	django.views.generic.base.TemplateView	auth:profile
 /auth/register/	authapp.views.register	auth:register
+/auth/telegram_login/	authapp.views.telegram_login	auth:telegram_login
 /auth/verify/<str:email>/<str:activation_key>/	authapp.views.verify	auth:verify
 /basket/	basketapp.views.basket	basket:view
 /basket/add/<int:pk>/	basketapp.views.basket_add	basket:add
