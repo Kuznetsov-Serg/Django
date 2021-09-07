@@ -2,12 +2,17 @@
 {% load static %}
 {% load my_tags %}
 
+{% block js %}
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>-->
+<!--<script src="{% static 'mainapp/js/main_scripts.js' %}"></script>-->
+{% endblock %}
+
 {% block content %}
 
 {% include 'geekshop/includes/inc_main_menu.html' %}
 
 <div class="details">
-    {% include 'mainapp/includes/inc_category_menu.html' %}
+    {% include 'mainapp/includes/inc_categories_menu.html' %}
 
     <div class="details-products">
         <div class="details-slider">

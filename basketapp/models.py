@@ -2,6 +2,8 @@
 
 from django.db import models
 from django.conf import settings
+from django.utils.functional import cached_property
+
 from mainapp.models import Product
 
 # Create your models here.
@@ -44,6 +46,12 @@ class Basket(models.Model):
         verbose_name = 'корзина'
         verbose_name_plural = 'корзины'
 
+
+    @cached_property
+    # @property
+    def get_items_cached(self):
+        return self.user.basket.select_related()
+
     @property
     def product_cost(self):
         "return cost of all products this type"
@@ -51,27 +59,31 @@ class Basket(models.Model):
 
     @property
     def total_quantity(self):
-        items = Basket.objects.filter(user=self.user)
+        # items = Basket.objects.filter(user=self.user)
+        items = self.get_items_cached
         totalquantity = sum(list(map(lambda x: x.quantity, items)))
         return totalquantity
 
     @property
     def total_cost(self):
-        items = Basket.objects.filter(user=self.user)
+        # items = Basket.objects.filter(user=self.user)
+        items = self.get_items_cached
         totalcost = sum(list(map(lambda x: x.product_cost, items)))
         return totalcost
 
     @property
     def basket_dict(self):
         basket_dict = {}
-        items = Basket.objects.filter(user=self.user)
+        # items = Basket.objects.filter(user=self.user)
+        items = self.get_items_cached
         for el in items:
             basket_dict[el.product.id] = el.quantity
         return basket_dict
 
     @classmethod
     def product_quantity_in_basket(self, product=0):
-        item = Basket.objects.filter(user=self.user, product=product)
+        items = self.get_items_cached.filter(product=product)
+        # item = Basket.objects.filter(user=self.user, product=product)
         if (item):
             quantity = item.quantity
         else:

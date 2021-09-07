@@ -34,6 +34,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Включение низкоуровневого кэширования «Memcached»
+LOW_CACHE = True
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -297,3 +300,16 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
 SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = env('SOCIAL_AUTH_TELEGRAM_BOT_TOKEN')
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+if os.name == 'posix':
+    CACHE_MIDDLEWARE_ALIAS = 'default'
+    CACHE_MIDDLEWARE_SECONDS = 60
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'geekshop'
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+
