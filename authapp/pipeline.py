@@ -14,8 +14,8 @@ from .models import ShopUserProfile
 def save_user_profile(backend, user, response, *args, **kwargs):
     if backend.name == 'vk-oauth2':
         api_url = urlunparse(('https', 'api.vk.com', '/method/users.get', None,
-                              urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_max_orig')),
-                                                    access_token=response['access_token'], v='5.131')),
+                              urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_200_orig')),
+                                                    access_token=response['access_token'], v='5.89')),
                               None))
         resp = requests.get(api_url)
         if resp.status_code != 200:
@@ -35,8 +35,8 @@ def save_user_profile(backend, user, response, *args, **kwargs):
                 user.delete()
                 raise AuthForbidden('social_core.backends.vk.VKOAuth2')
 
-        if data['photo_max_orig']:
-            user.avatar = data['photo_max_orig']
+        if data['photo_200_orig']:
+            user.avatar = data['photo_200_orig']
 
         user.save()
     elif backend.name == 'odnoklassniki-oauth2':

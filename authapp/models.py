@@ -16,7 +16,7 @@ class ShopUser(AbstractUser):
         blank=True,
     )
     activation_key_expires = models.DateTimeField(
-        default=(now() + timedelta(hours=48)),
+        default=(now() + timedelta(hours=48))
     )
 
     def is_activation_key_expired(self):

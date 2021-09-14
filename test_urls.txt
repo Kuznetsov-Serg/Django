@@ -1,12 +1,1 @@
-http://194.67.90.228/
-http://194.67.90.228/products/
-http://194.67.90.228/contacts/
-http://194.67.90.228/products/category/1/
-http://194.67.90.228/products/category/2/
-http://194.67.90.228/products/category/3/
-http://194.67.90.228/products/category/4/
-http://194.67.90.228/basket/
-http://194.67.90.228/order/
-http://194.67.90.228/auth/edit/
 http://194.67.90.228/order/update/1/
-http://194.67.90.228/order/update/2/

@@ -1,4 +1,8 @@
 # coding="utf-8"
+from django.db import connection
+
+from adminapp.views import db_profile_by_type
+
 coding: "utf8"
 
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
@@ -10,6 +14,8 @@ from django.urls import reverse
 
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+
+from django.db.models import F, Q
 
 
 @login_required
@@ -32,9 +38,14 @@ def basket_add(request, pk):
     if not basket:      # Еще не было корзины - создадим
         product = get_object_or_404(Product, pk=pk)
         basket = Basket(user=request.user, product=product)
-
-    basket.quantity += 1
+        basket.quantity = 1
+    else:
+        basket.quantity += 1
+        # basket.quantity = F('quantity') + 1     # F - только для обновления существующих значений
     basket.save()
+
+    db_profile_by_type('Basket', 'UPDATE', connection.queries)
+
     if 'login' in request.META.get('HTTP_REFERER'):
         return HttpResponseRedirect(reverse('products:product', args=[pk]))     # чтобы вернуться не на login
     else:

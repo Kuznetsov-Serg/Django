@@ -20,7 +20,7 @@ pymysql.install_as_MySQLdb()
 import social_core.backends.telegram
 from django.urls import reverse_lazy
 
-# Для работы с переменными среды окружения, в частности - регистрации через соцсети методои .env
+# Для работы с переменными среды окружения, в частности - регистрации через соцсети мето>
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -44,7 +44,7 @@ ROOT_URLCONF = 'geekshop.urls'
 AUTH_USER_MODEL = 'authapp.ShopUser'
 
 # Default profile url
-LOGIN_REDIRECT_URL = reverse_lazy('authapp:profile')
+LOGIN_REDIRECT_URL = reverse_lazy('authapp/profile')
 LOGIN_ERROR_URL = '/'
 
 WSGI_APPLICATION = 'geekshop.wsgi.application'
@@ -140,6 +140,18 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+#if os.name == 'posix':
+#   CACHE_MIDDLEWARE_ALIAS = 'default'
+#   CACHE_MIDDLEWARE_SECONDS = 60
+#   CACHE_MIDDLEWARE_KEY_PREFIX = 'geekshop'
+#
+#   CACHES = {
+#       'default': {
+#           'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#           'LOCATION': '127.0.0.1:11211',
+#       }
+#   }
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -158,7 +170,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -188,7 +199,7 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidato>
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -207,8 +218,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 LANGUAGES = [
-('en', 'English'),
-('ru', 'Russian'),
+    ('en', 'English'),
+    ('ru', 'Russian'),
 ]
 
 TIME_ZONE = 'Europe/Moscow'
@@ -227,6 +238,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
+    #    os.path.join(BASE_DIR, "basketapp", "static"),
 )
 
 STATICFILES_FINDERS = [
@@ -236,7 +248,6 @@ STATICFILES_FINDERS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -284,7 +295,7 @@ SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
 # https://ok.ru
 SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_KEY = env('SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_KEY')
 SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_SECRET = env('SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_SECRET')
-SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_PUBLIC_NAME = env('SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_PUBLIC_NAME')
+SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_PUBLIC_NAME = env('SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_PUB>
 SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_ODNOKLASSNIKI_OAUTH2_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
@@ -312,3 +323,4 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
 SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = env('SOCIAL_AUTH_TELEGRAM_BOT_TOKEN')
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+

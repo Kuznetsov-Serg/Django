@@ -34,6 +34,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Включение низкоуровневого кэширования «Memcached»
+LOW_CACHE = True
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -109,7 +112,7 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_ERROR_URL = '/'
 
 # Default profile url
-LOGIN_REDIRECT_URL = reverse_lazy('authapp/profile')
+LOGIN_REDIRECT_URL = reverse_lazy('authapp:profile')
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -210,6 +213,10 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+MEDIA_URL = '/media/'
+STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'geekshop', 'static'),
@@ -297,3 +304,16 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
 SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = env('SOCIAL_AUTH_TELEGRAM_BOT_TOKEN')
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+if os.name == 'posix':
+    CACHE_MIDDLEWARE_ALIAS = 'default'
+    CACHE_MIDDLEWARE_SECONDS = 60
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'geekshop'
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+
