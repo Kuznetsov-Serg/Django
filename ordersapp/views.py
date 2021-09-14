@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.db.models.signals import pre_save, pre_delete
+from django.db.models import F, Q
+
 from django.dispatch import receiver
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect, JsonResponse
@@ -129,14 +131,17 @@ def order_forming_complete(request, pk):
 
 
 @receiver(pre_save, sender=OrderItem)
-# @receiver(pre_save, sender=Basket)      # дублирует работу model - закомментируем
+@receiver(pre_save, sender=Basket)      # дублирует работу model - закомментируем
 def product_quantity_update_save(sender, update_fields, instance, **kwargs):
     if update_fields == 'quantity' or 'product':
         if instance.pk:
+            # instance.refresh_from_db()
             instance.product.quantity -= instance.quantity - sender.get_item(instance.pk).quantity
+            # instance.product.quantity = F('quantity') - instance.quantity - sender.get_item(instance.pk).quantity
         else:
             instance.product.quantity -= instance.quantity
         instance.product.save()
+        print(instance.product.quantity)
 
 
 @receiver(pre_delete, sender=OrderItem)

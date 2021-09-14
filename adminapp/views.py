@@ -2,6 +2,10 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.admin.forms import AdminPasswordChangeForm
+from django.db.models import F
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.db import connection
 
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -13,7 +17,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from authapp.models import ShopUser
 from mainapp.models import Product, ProductCategory
 from authapp.forms import ShopUserCreateForm, ShopUserEditForm
-from adminapp.forms import ShopUserChangePasswordForm, ProductCategoryForm, ProductForm
+from adminapp.forms import ShopUserChangePasswordForm, ProductCategoryForm, ProductForm, ProductCategoryEditForm
 
 
 # @user_passes_test(lambda u: u.is_superuser)
@@ -34,6 +38,7 @@ from adminapp.forms import ShopUserChangePasswordForm, ProductCategoryForm, Prod
 #         'objects': objects_paginator
 #     }
 #     return render(request, 'adminapp/users.html', context)
+
 
 class UserListView(LoginRequiredMixin, ListView):
     model = ShopUser  # единственный обязательный параметр
@@ -251,7 +256,7 @@ def category_create(request):
     }
     return render(request, 'adminapp/category_update.html', context)
 
-
+# Заменил вызов на CBV - ProductCategoryUpdateView
 @user_passes_test(lambda u: u.is_superuser)
 def category_update(request, pk):
     title = 'админка/изменение категории'
@@ -272,7 +277,30 @@ def category_update(request, pk):
     }
     return render(request, 'adminapp/category_update.html', context)
 
+class ProductCategoryUpdateView(LoginRequiredMixin, UpdateView):
+    model = ProductCategory
+    template_name = 'adminapp/category_update.html'
+    success_url = reverse_lazy('admin_staff:categories')
+    form_class = ProductCategoryEditForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'категории/редактирование'
+        context['type_operation'] = 'изменение'
+        return context
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+                db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
+
+        return super().form_valid(form)
+
+
+
+# Заменил вызов на CBV - ProductCategoryDelete
 @user_passes_test(lambda u: u.is_superuser)
 def category_delete(request, pk):
     title = 'админка/удаление категории'
@@ -295,6 +323,33 @@ def category_delete(request, pk):
     }
     return render(request, 'adminapp/category_update.html', context)
 
+
+class ProductCategoryDelete(LoginRequiredMixin, UpdateView):    # Если ставить DeleteView не смотрит form_class и не показывает содержимое
+    """
+    Контроллер для удаления (помечания неактивной) категории
+    """
+    model = ProductCategory
+    success_url = reverse_lazy('admin_staff:categories')
+    template_name = 'adminapp/productcategory_confirm_delete.html'
+    # template_name = 'adminapp/category_update.html'
+    form_class = ProductCategoryForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductCategoryDelete, self).get_context_data(*args, **kwargs)
+        title = 'админка/удаление категории'
+        type_operation = 'деактивировать' if self.object.is_active else 'активировать'
+        context.update({'title': title, 'type_operation': type_operation})
+        return context
+
+    def form_valid(self, form):
+        self.object.is_active = False if self.object.is_active else True
+        return super().form_valid(form)
+
+    # def delete(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     self.object.is_active = False if self.object.is_active else True
+    #     self.object.save()
+    #     return HttpResponseRedirect(self.get_success_url())
 
 @user_passes_test(lambda u: u.is_superuser)
 def products(request, pk, page=1):
@@ -391,3 +446,18 @@ def product_delete(request, pk):
         product.is_active = False if product.is_active else True
         product.save()
         return HttpResponseRedirect(reverse('adminapp:products', args=[product.category.pk]))
+
+
+# Функция печати SQL-запросов (для профилирования/тестирования или логгирования)
+def db_profile_by_type(prefix, type, queries):
+    update_queries = list(filter(lambda x: type in x['sql'], queries))
+    print(f'db_profile {type} for {prefix}:')
+    [print(query['sql']) for query in update_queries]
+
+# Фнункция-сигнал для синхронизации активности товаров с категорией
+@receiver(pre_save, sender= ProductCategory)
+def product_is_active_update_productcategory_save(sender, update_fields, instance, **kwargs):
+    if instance.pk:
+        instance.product_set.update(is_active=instance.is_active)
+        db_profile_by_type(sender, 'UPDATE', connection.queries)
+

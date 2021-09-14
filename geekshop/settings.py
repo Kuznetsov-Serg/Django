@@ -112,7 +112,7 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_ERROR_URL = '/'
 
 # Default profile url
-LOGIN_REDIRECT_URL = reverse_lazy('authapp/profile')
+LOGIN_REDIRECT_URL = reverse_lazy('authapp:profile')
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -212,6 +212,10 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+MEDIA_URL = '/media/'
+STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (

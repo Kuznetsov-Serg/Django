@@ -1,0 +1,780 @@
+[
+  {
+    "model": "social_django.usersocialauth",
+    "pk": 15,
+    "fields": {
+      "user": 62,
+      "provider": "vk-oauth2",
+      "uid": "96696609",
+      "extra_data": "{\"auth_time\": 1631355370, \"id\": 96696609, \"expires\": 86400, \"access_token\": \"001f79a8f35fc212b427b4354ba6281fab425ceade963f920198b9cdb1697fe5fcd2df9a2e0330227d59c\", \"token_type\": null}",
+      "created": "2021-09-11T13:16:10.472",
+      "modified": "2021-09-11T13:16:10.501"
+    }
+  },
+  {
+    "model": "social_django.usersocialauth",
+    "pk": 16,
+    "fields": {
+      "user": 63,
+      "provider": "odnoklassniki-oauth2",
+      "uid": "107955373323",
+      "extra_data": "{\"auth_time\": 1631355377, \"refresh_token\": \"d_77355313615cde6ac6190bc26ec571b9958d8ac844_107955373323b\", \"expires\": \"1800\", \"access_token\": \"-s-4TELgK8GD5YHzc7IlA-w1an-dXcF1d91E2XFz88BiVYHzb\", \"token_type\": null}",
+      "created": "2021-09-11T13:16:17.498",
+      "modified": "2021-09-11T13:16:17.526"
+    }
+  },
+  {
+    "model": "mainapp.productcategory",
+    "pk": 32,
+    "fields": {
+      "name": "дом",
+      "description": "домашняя утварь",
+      "is_active": true,
+      "created": "2021-08-11T15:25:33.738",
+      "updated": "2021-09-10T19:18:02.131"
+    }
+  },
+  {
+    "model": "mainapp.productcategory",
+    "pk": 33,
+    "fields": {
+      "name": "офис",
+      "description": "от клерков до директоров",
+      "is_active": true,
+      "created": "2021-08-11T15:25:33.883",
+      "updated": "2021-08-14T15:59:53.184"
+    }
+  },
+  {
+    "model": "mainapp.productcategory",
+    "pk": 34,
+    "fields": {
+      "name": "модерн",
+      "description": "модная и дорогая",
+      "is_active": true,
+      "created": "2021-08-11T15:25:33.992",
+      "updated": "2021-08-14T15:59:37.013"
+    }
+  },
+  {
+    "model": "mainapp.productcategory",
+    "pk": 35,
+    "fields": {
+      "name": "классика",
+      "description": "нестареющая классическая мебель и предметы интерьера",
+      "is_active": true,
+      "created": "2021-08-11T15:25:34.192",
+      "updated": "2021-08-14T15:59:18.373"
+    }
+  },
+  {
+    "model": "mainapp.productcategory",
+    "pk": 36,
+    "fields": {
+      "name": "прочее",
+      "description": "все, что не вошло в др. категории",
+      "is_active": true,
+      "created": "2021-08-11T15:25:34.335",
+      "updated": "2021-08-14T16:00:58.940"
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 161,
+    "fields": {
+      "category": 32,
+      "name": "лампа",
+      "short_desc": "лампа белая чухонская",
+      "image": "products_images/product-01.jpg",
+      "description": "овальная лампа настольного типа",
+      "price": "50.00",
+      "quantity": 13,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 162,
+    "fields": {
+      "category": 33,
+      "name": "стул",
+      "short_desc": "стул синий",
+      "image": "products_images/product-02.jpg",
+      "description": "отличные стулья впишутся в любой интерьер",
+      "price": "200.00",
+      "quantity": 28,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 163,
+    "fields": {
+      "category": 34,
+      "name": "чайник",
+      "short_desc": "чайник белый наклонный",
+      "image": "products_images/product-03.jpg",
+      "description": "супермощный чайник для церемоний",
+      "price": "300.00",
+      "quantity": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 164,
+    "fields": {
+      "category": 35,
+      "name": "диван",
+      "short_desc": "диван серый обеденный",
+      "image": "products_images/product-04.jpg",
+      "description": "на диване можно \"все\"",
+      "price": "400.00",
+      "quantity": 12,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 165,
+    "fields": {
+      "category": 36,
+      "name": "стул",
+      "short_desc": "стул красный - опасный",
+      "image": "products_images/product-05.jpg",
+      "description": "я бы сказал - табурет, но стул",
+      "price": "500.00",
+      "quantity": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 166,
+    "fields": {
+      "category": 32,
+      "name": "часы",
+      "short_desc": "часы настенные",
+      "image": "products_images/product-06.jpg",
+      "description": "часы без циферок - для \"счастливых\"",
+      "price": "300.00",
+      "quantity": 5,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 167,
+    "fields": {
+      "category": 33,
+      "name": "люстра",
+      "short_desc": "люстра потолковая",
+      "image": "products_images/product-07.jpg",
+      "description": "люстра со свернутой \"башкой\"",
+      "price": "700.00",
+      "quantity": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 168,
+    "fields": {
+      "category": 34,
+      "name": "подушка",
+      "short_desc": "подушка красная",
+      "image": "products_images/product-08.jpg",
+      "description": "странная подушка для маленькой лягушки",
+      "price": "800.00",
+      "quantity": 5,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 169,
+    "fields": {
+      "category": 35,
+      "name": "торшер",
+      "short_desc": "торшер прикольный",
+      "image": "products_images/product-09.jpg",
+      "description": "архаизм и пережиток прошлого",
+      "price": "900.00",
+      "quantity": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 170,
+    "fields": {
+      "category": 36,
+      "name": "кресло",
+      "short_desc": "кресло белое",
+      "image": "products_images/product-10.jpg",
+      "description": "кресло для пиженов",
+      "price": "1000.00",
+      "quantity": 23,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 171,
+    "fields": {
+      "category": 32,
+      "name": "лампа",
+      "short_desc": "лампа настольная",
+      "image": "products_images/product-11.jpg",
+      "description": "лампа с изогнутыми линиями - ЭЛЕГАНТ",
+      "price": "550.00",
+      "quantity": 11,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 172,
+    "fields": {
+      "category": 33,
+      "name": "бра",
+      "short_desc": "бра конусообразная",
+      "image": "products_images/product-12.jpg",
+      "description": "бра классический",
+      "price": "1200.00",
+      "quantity": 5,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 173,
+    "fields": {
+      "category": 34,
+      "name": "посуда",
+      "short_desc": "чашка для измельчения",
+      "image": "products_images/product-13.jpg",
+      "description": "для рабыни Изауры - лучшее применение",
+      "price": "1300.00",
+      "quantity": 6,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 174,
+    "fields": {
+      "category": 35,
+      "name": "ваза",
+      "short_desc": "ваза белая (косая)",
+      "image": "products_images/product-14.jpg",
+      "description": "косое горлышко - изящный дизайн",
+      "price": "1400.00",
+      "quantity": 7,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 175,
+    "fields": {
+      "category": 36,
+      "name": "люстра",
+      "short_desc": "лампочка Ильича",
+      "image": "products_images/product-15.jpg",
+      "description": "в цеху такие лампы были…",
+      "price": "1500.00",
+      "quantity": 34,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 176,
+    "fields": {
+      "category": 32,
+      "name": "диван",
+      "short_desc": "диван синий",
+      "image": "products_images/product-16.jpg",
+      "description": "диван синий более подробно...",
+      "price": "7950.00",
+      "quantity": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 177,
+    "fields": {
+      "category": 35,
+      "name": "диван",
+      "short_desc": "диван красный",
+      "image": "products_images/product-17.jpg",
+      "description": "диван красный более подробно…",
+      "price": "16900.00",
+      "quantity": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 178,
+    "fields": {
+      "category": 32,
+      "name": "диван",
+      "short_desc": "красный велюровый диван",
+      "image": "products_images/product-18.jpg",
+      "description": "красный велюровый диван более подробно…",
+      "price": "11000.00",
+      "quantity": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 179,
+    "fields": {
+      "category": 34,
+      "name": "диван",
+      "short_desc": "коричневый диван",
+      "image": "products_images/product-19.jpg",
+      "description": "коричневый диван более подробно…",
+      "price": "18700.00",
+      "quantity": 5,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 180,
+    "fields": {
+      "category": 32,
+      "name": "диван",
+      "short_desc": "кожанный угловой диван",
+      "image": "products_images/product-20.jpg",
+      "description": "кожанный угловой диван более подробно…",
+      "price": "7650.00",
+      "quantity": 6,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 181,
+    "fields": {
+      "category": 35,
+      "name": "диван",
+      "short_desc": "диван из зеленой кожи",
+      "image": "products_images/product-21.jpg",
+      "description": "диван из зеленой кожи более подробно…",
+      "price": "11000.00",
+      "quantity": 7,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 182,
+    "fields": {
+      "category": 34,
+      "name": "диван",
+      "short_desc": "пестренькая тахиа",
+      "image": "products_images/product-22.jpg",
+      "description": "пестренькая тахиа более подробно…",
+      "price": "29700.00",
+      "quantity": 5,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 183,
+    "fields": {
+      "category": 32,
+      "name": "диван",
+      "short_desc": "белый угловой диван",
+      "image": "products_images/product-23.jpg",
+      "description": "белый угловой диван более подробно…",
+      "price": "6555.50",
+      "quantity": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 184,
+    "fields": {
+      "category": 35,
+      "name": "диван",
+      "short_desc": "белый кожаный диванчик",
+      "image": "products_images/product-24.jpg",
+      "description": "белый кожаный диванчик более подробно…",
+      "price": "14000.00",
+      "quantity": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 185,
+    "fields": {
+      "category": 34,
+      "name": "диван",
+      "short_desc": "диван цвета детской неожиданности",
+      "image": "products_images/product-25.jpg",
+      "description": "диван цвета детской неожиданности более подробно…",
+      "price": "16000.00",
+      "quantity": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 186,
+    "fields": {
+      "category": 36,
+      "name": "стул",
+      "short_desc": "неведома зверушка",
+      "image": "products_images/product-26.jpg",
+      "description": "неведома зверушка более подробно…",
+      "price": "1500.00",
+      "quantity": 7,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 187,
+    "fields": {
+      "category": 34,
+      "name": "стул",
+      "short_desc": "пластиковый косичкой",
+      "image": "products_images/product-27.jpg",
+      "description": "пластиковый косичкой более подробно…",
+      "price": "2300.00",
+      "quantity": 8,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 188,
+    "fields": {
+      "category": 33,
+      "name": "стул",
+      "short_desc": "черный офисный",
+      "image": "products_images/product-28.jpg",
+      "description": "черный офисный более подробно…",
+      "price": "3500.00",
+      "quantity": 9,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 189,
+    "fields": {
+      "category": 35,
+      "name": "стул",
+      "short_desc": "дерево под старину",
+      "image": "products_images/product-29.jpg",
+      "description": "дерево под старину более подробно…",
+      "price": "3700.00",
+      "quantity": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 190,
+    "fields": {
+      "category": 33,
+      "name": "стул",
+      "short_desc": "синий офисный",
+      "image": "products_images/product-30.jpg",
+      "description": "синий офисный более подробно…",
+      "price": "4000.00",
+      "quantity": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 191,
+    "fields": {
+      "category": 34,
+      "name": "стул",
+      "short_desc": "желтый ущербный",
+      "image": "products_images/product-31.jpg",
+      "description": "желтый ущербный более подробно…",
+      "price": "3450.00",
+      "quantity": 5,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 192,
+    "fields": {
+      "category": 32,
+      "name": "стул",
+      "short_desc": "оранжевый",
+      "image": "products_images/product-32.jpg",
+      "description": "оранжевый более подробно…",
+      "price": "2250.00",
+      "quantity": 7,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 193,
+    "fields": {
+      "category": 35,
+      "name": "стул",
+      "short_desc": "из прошлого столетия",
+      "image": "products_images/product-33.jpg",
+      "description": "из прошлого столетия более подробно…",
+      "price": "4680.00",
+      "quantity": 8,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 194,
+    "fields": {
+      "category": 34,
+      "name": "стул",
+      "short_desc": "желтый непонятный",
+      "image": "products_images/product-34.jpg",
+      "description": "желтый непонятный более подробно…",
+      "price": "4000.00",
+      "quantity": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 195,
+    "fields": {
+      "category": 35,
+      "name": "стул",
+      "short_desc": "нестареющпя классика",
+      "image": "products_images/product-35.jpg",
+      "description": "нестареющпя классика более подробно…",
+      "price": "1200.00",
+      "quantity": 7,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 196,
+    "fields": {
+      "category": 32,
+      "name": "стул",
+      "short_desc": "желтый на деревянных ножках2",
+      "image": "products_images/product-36.jpg",
+      "description": "желтый на деревянных ножках более подробно…",
+      "price": "650.00",
+      "quantity": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 197,
+    "fields": {
+      "category": 34,
+      "name": "стул",
+      "short_desc": "прозрачный из оргстекла",
+      "image": "products_images/product-37.jpg",
+      "description": "прозрачный из оргстекла более подробно…",
+      "price": "1500.00",
+      "quantity": 6,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 198,
+    "fields": {
+      "category": 35,
+      "name": "диван",
+      "short_desc": "коричневый велюровый",
+      "image": "products_images/product-38.jpg",
+      "description": "коричневый велюровый более подробно…",
+      "price": "1900.00",
+      "quantity": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 199,
+    "fields": {
+      "category": 32,
+      "name": "1_диван без фото",
+      "short_desc": "тестовая позиция",
+      "image": "",
+      "description": "просто так",
+      "price": "500.00",
+      "quantity": 50,
+      "is_active": true
+    }
+  },
+  {
+    "model": "authapp.shopuser",
+    "pk": 61,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$CfSXzqr8EUCJNvqI8Zh0aR$v/pAt9yfDu0mOZL/QhNthhDr8zxaPTSMzuzkXiAJAsA=",
+      "last_login": "2021-09-11T13:16:29.954",
+      "is_superuser": true,
+      "username": "kuznetsov2",
+      "first_name": "",
+      "last_name": "",
+      "email": "ksn1974@mail.ru",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-09-11T13:15:47.004",
+      "avatar": "users_avatars/на_белом_фоне_sXjYdAE.png",
+      "age": 18,
+      "activation_key": "",
+      "activation_key_expires": "2021-09-13T13:15:27.289",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "authapp.shopuser",
+    "pk": 62,
+    "fields": {
+      "password": "!J7yNSqzo4dSnZTqKkn48MNg7abhtRfshsBmq9N5D",
+      "last_login": "2021-09-11T13:16:10.913",
+      "is_superuser": false,
+      "username": "id96696609",
+      "first_name": "Сергей",
+      "last_name": "Кузнецов",
+      "email": "ksn1974@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-09-11T13:16:10.358",
+      "avatar": "https://sun9-74.userapi.com/s/v1/ig2/Kr3cwBP3XHle7unTbJ4peHOr7vEPqxk4VcVpEMue4mQl6LiFrDLdp2T64Avs5GrE6bTNJ8cfPqkP6UnZFnrC46xc.jpg?size=400x400&quality=96&crop=6,0,1767,1767&ava=1",
+      "age": 18,
+      "activation_key": "",
+      "activation_key_expires": "2021-09-13T13:05:56.776",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "authapp.shopuser",
+    "pk": 63,
+    "fields": {
+      "password": "!p2l4IhGMkJoszOTS6TWOA9yvsRu8sNozgyMzmNfB",
+      "last_login": "2021-09-11T13:16:17.881",
+      "is_superuser": false,
+      "username": "107955373323",
+      "first_name": "Сергей",
+      "last_name": "Кузнецов",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-09-11T13:16:17.331",
+      "avatar": "https://i.mycdn.me/image?id=457436907531&t=33&plc=API&aid=512001258891&tkn=*pPEiWIlEWP8Bhg8KAxykIoRX8NE",
+      "age": 18,
+      "activation_key": "",
+      "activation_key_expires": "2021-09-13T13:05:56.776",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "ordersapp.order",
+    "pk": 6,
+    "fields": {
+      "user": 61,
+      "created": "2021-09-11T13:18:04.691",
+      "updated": "2021-09-11T13:20:31.048",
+      "status": "STP",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ordersapp.order",
+    "pk": 7,
+    "fields": {
+      "user": 61,
+      "created": "2021-09-11T13:19:40.348",
+      "updated": "2021-09-11T13:19:40.606",
+      "status": "FM",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ordersapp.order",
+    "pk": 8,
+    "fields": {
+      "user": 61,
+      "created": "2021-09-11T13:20:17.167",
+      "updated": "2021-09-11T13:20:17.399",
+      "status": "FM",
+      "is_active": true
+    }
+  },
+  {
+    "model": "ordersapp.orderitem",
+    "pk": 17,
+    "fields": {
+      "order": 6,
+      "product": 161,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "ordersapp.orderitem",
+    "pk": 18,
+    "fields": {
+      "order": 6,
+      "product": 166,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "ordersapp.orderitem",
+    "pk": 19,
+    "fields": {
+      "order": 6,
+      "product": 199,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "ordersapp.orderitem",
+    "pk": 20,
+    "fields": {
+      "order": 7,
+      "product": 167,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "ordersapp.orderitem",
+    "pk": 21,
+    "fields": {
+      "order": 7,
+      "product": 190,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "ordersapp.orderitem",
+    "pk": 22,
+    "fields": {
+      "order": 8,
+      "product": 168,
+      "quantity": 1
+    }
+  }
+]
